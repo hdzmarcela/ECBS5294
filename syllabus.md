@@ -11,7 +11,7 @@
 
 **Content.** Practical literacy for working with data: tidy tables and keys, types and missing values, essential **SQL** with **DuckDB**, turning **JSON/APIs** into analysis-ready tables, and simple multi-stage pipeline habits (raw → clean → analysis) with light validations-as-code and stakeholder-focused communication.
 
-**Relevance.** These skills are day-one requirements in analyst/DS roles and prepare students for Data Engineering (Fall 2\) and advanced analytics.
+**Relevance.** These skills are day-one requirements in analyst/DS roles and prepare students for Data Engineering and advanced analytics.
 
 ---
 
@@ -58,14 +58,14 @@ By the end, students can:
 
 * Core to **MSBA**; complements **Coding 1 (Intro to Python)** and **Data Science 1 (Reproducible Research/Git)** taught in parallel.
 
-* Preparation for **Data Engineering (Fall 2\)** and analytics electives.
+* Preparation for **Data Engineering** and analytics electives.
 
 ---
 
 ## **Technical requirements**
 
-* **Software:** Python 3.x, JupyterLab or VS Code, DuckDB (Python or CLI), Git.  
-* **Starter repo:** `/data`, `/notebooks`, `/sql`, `README.md`.  
+* **Software:** Python 3.x, JupyterLab or VS Code, DuckDB (Python or CLI), Git.
+* **Starter repo:** `/data`, `/notebooks`, `/assignments`, `/scripts`, `/solutions`, `/references`, `README.md`.
 * All teaching datasets are provided **offline**.
 
 ---
@@ -89,19 +89,17 @@ By the end, students can:
 
 ## **Course assessment and grading**
 
-* **Homework 1 (SQL single-table \+ window primer)** – 10%  
-* **Homework 2 (JSON → tables mini-pipeline)** – 15%  
-* **In-class deliverables** (short notebook write-ups) – 5%  
-* **Oral SQL check (whiteboard, Oct 22\)** – 30%  
-* **Final mini-project (end-to-end pipeline \+ KPIs \+ stakeholder note)** – 40%
-
-**Rubric (per artifact).** Correctness 40% • Data thinking 25% • Reproducibility 20% • Communication 15%
+* **Homework 1 (SQL single-table \+ window primer)** – 20%
+* **Homework 2 (JSON → tables mini-pipeline)** – 25%
+* **Homework 3 (end-to-end pipeline \+ KPIs \+ stakeholder note)** – 25%
+* **In-class deliverables** (short notebook write-ups, completion-based) – 5%
+* **In-class exam (paper/pen, Oct 22\)** – 25%
 
 **Department grading guidance.** The department targets a **class median around B+**, with **no more than roughly one-third** of grades at **A/A-** across sections. Final grades remain at instructor discretion within university policy.
 
-**Late policy.** HW accepted up to 48 hours late at −10% per 24 hours. Oral and final project occur as scheduled; extensions require documented emergencies and approval.
+**Late policy.** HW accepted up to 48 hours late at −10% per 24 hours. In-class exam and in-class deliverables occur as scheduled; extensions require documented emergencies and approval.
 
-**Use of AI tools.** To align with parallel courses, **AI assistants (ChatGPT/Claude/Copilot, etc.) are not permitted for graded work** (HWs, oral, final). You may use them for personal study; do not submit AI-generated code/text.
+**Use of AI tools.** To align with parallel courses, **AI assistants (ChatGPT/Claude/Copilot, etc.) are not permitted for graded work** (HWs, in-class exam). You may use them for personal study; do not submit AI-generated code/text.
 
 **Academic integrity & accessibility.** CEU policies apply. Contact the instructor and university office early for accommodations.
 
@@ -162,25 +160,35 @@ By the end, students can:
 
 * **Work habits:** Run-All discipline, small commits, reading docs, rubber-duck debugging, when to choose SQL vs Python.
 
-* **Micro-exercise:** 3-step pipeline (bronze → silver → gold) with two assertions \+ a one-paragraph risk note.
+* **Micro-exercise:** 3-step pipeline (bronze → silver → gold) with two assertions \+ a one-paragraph risk note. This prepares you for **HW3**.
 
-**Block B (15:30–17:10) — Parallel tracks**
+**Block B (15:30–17:10) — In-class exam**
 
-* **Track 1 (instructor, rolling):** **Oral SQL check** (8–10 minutes/student): a JOIN, a grouped KPI, and a `NULL`/edge case; explain in plain English.
+* **In-class exam (paper/pen, no computers):** Individual assessment covering SQL fundamentals, joins, window functions, JSON normalization concepts, data validation patterns, and data thinking principles.
 
-* **Track 2 (independent):** **Final mini-project sprint** using an **offline data pack** (CSV \+ JSON \+ Parquet).
+  * Format: Short-answer questions, SQL query writing, scenario-based problems (e.g., choosing appropriate join types, identifying data quality issues).
+
+  * Duration: Full block (100 minutes).
+
+  * Closed-book; one reference sheet (letter-size, both sides) permitted.
+
+* **Assigned:** **HW3** (end-to-end pipeline using an **offline data pack** — CSV \+ JSON \+ Parquet).
 
   * Deliver: ingest/normalize; persist to DuckDB; 3–5 KPIs with joins and grouping; 2–3 validations as code; concise data dictionary; **stakeholder note** (8–10 sentences).
 
   * **Submission:** Git-tracked repo/notebook; **Run-All** succeeds on a clean clone.
 
-  * **Due:** End of day (or **next morning 09:00** if announced in class).
+  * **Due: Wed Oct 29 (23:59)** — one full week after class.
 
 ---
 
 ## **Contact details**
 
-**Instructor**: Eduardo Ariño de la Rubia  
- **Department**: Economics and Business, Central European University  
- **Email/Office/Web**: TBA
+**Instructor**: Eduardo Ariño de la Rubia
+**Department**: Economics and Business, Central European University
+
+**Email**: RubiaE@ceu.edu
+**WhatsApp**: +34 654 69 13 63
+**Office**: Room A104
+**Office hours**: By appointment
 
