@@ -6,6 +6,66 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a course repository for **ECBS5294: Introduction to Data Science: Working with Data** at Central European University. The course focuses on practical data literacy: tidy data principles, SQL with DuckDB, JSON/API ingestion, and reproducible multi-stage pipelines.
 
+## 🚨 CRITICAL: TESTING REQUIREMENT
+
+**MANDATORY FOR ALL TEACHING MATERIALS**
+
+### Execute EVERY Query in EVERY Notebook
+
+Before committing ANY teaching notebook or assignment:
+
+1. **Execute the entire notebook from scratch**:
+   ```bash
+   jupyter nbconvert --to notebook --execute notebooks/your_notebook.ipynb --inplace --ExecutePreprocessor.timeout=300
+   ```
+
+2. **Verify EVERY SINGLE query returns meaningful results**:
+   - ❌ **NEVER** write queries that return empty results
+   - ❌ **NEVER** use filter conditions that don't match your data
+   - ❌ **NEVER** assume data constraints without checking
+   - ✅ **ALWAYS** verify examples show actual data
+   - ✅ **ALWAYS** test queries against actual dataset constraints
+
+3. **Common mistakes to avoid**:
+   - Writing `WHERE price > 5` when max price is $5.00 → Returns nothing!
+   - Writing `WHERE item = 'Latte'` when no Latte exists → Returns nothing!
+   - Writing `WHERE revenue > 30` when max revenue is $25 → Returns nothing!
+   - Writing queries based on assumptions instead of data reality
+
+4. **Data constraint verification workflow**:
+   ```python
+   # BEFORE writing teaching queries, check data reality:
+   con.execute("SELECT MAX(price) FROM data").df()
+   con.execute("SELECT DISTINCT item FROM data").df()
+   con.execute("SELECT MAX(price * quantity) as max_revenue FROM data").df()
+
+   # THEN write queries that will return meaningful results
+   # THEN execute entire notebook end-to-end
+   # THEN verify EVERY example shows data
+   ```
+
+### Why This Matters
+
+**Students will think THEY made a mistake** if your teaching example returns empty results. This destroys confidence and wastes learning time. Empty results are ONLY acceptable when:
+- You're explicitly teaching "this query returns nothing because..."
+- The pedagogical point is understanding empty results
+
+**Otherwise, every teaching query MUST return meaningful data.**
+
+### Testing Checklist
+
+Before pushing any notebook:
+- [ ] Executed entire notebook from scratch (Kernel → Restart & Run All)
+- [ ] Verified EVERY SQL query returns rows (unless pedagogically intentional)
+- [ ] Verified EVERY code example produces visible output
+- [ ] Verified EVERY calculated column shows non-NULL values
+- [ ] Checked dataset constraints match query assumptions
+- [ ] Tested with actual data, not imagined data
+
+**If you skip this, students WILL find broken queries in class. Don't skip this.**
+
+---
+
 ## Project Structure
 
 Expected directories:
