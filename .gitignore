@@ -1,0 +1,125 @@
+# ECBS5294 - Introduction to Data Science: Working with Data
+# .gitignore
+
+# ============================================
+# Solution Files - MUST BE ENCRYPTED
+# ============================================
+# These files should NEVER be committed unencrypted.
+# Use scripts/encrypt_solutions.py to create password-protected ZIPs.
+
+# Solution notebooks and scripts
+*_solution.ipynb
+*_solution.py
+*/solution.ipynb
+*/solution.py
+assignments/*/solution/*
+
+# ============================================
+# Solution Management
+# ============================================
+# Password tracking and decrypted files
+
+# Password documentation (contains sensitive information)
+solutions/PASSWORDS.md
+
+# Decrypted solution files (working directory)
+solutions/decrypted/
+
+# Encryption log (auto-generated history)
+solutions/.encryption_log.txt
+
+# ============================================
+# Python
+# ============================================
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+*.egg-info/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# ============================================
+# Data Files
+# ============================================
+# Exclude large data files that shouldn't be in repo
+# (Keep teaching datasets under version control)
+
+# Student work directories (if created)
+student_work/
+scratch/
+temp/
+
+# Downloaded or generated data (not teaching materials)
+data/downloads/
+data/temp/
+*.tmp
+
+# ============================================
+# IDE and Editor Files
+# ============================================
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+.directory
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ============================================
+# DuckDB
+# ============================================
+# Database files (recreate from scripts)
+*.duckdb
+*.duckdb.wal
+*.db
+
+# ============================================
+# Build and Distribution
+# ============================================
+dist/
+build/
+*.egg
+*.whl
+
+# ============================================
+# Logs and Temporary Files
+# ============================================
+*.log
+*.swp
+*.swo
+.cache/
+
+# ============================================
+# Kaggle
+# ============================================
+# API credentials
+.kaggle/kaggle.json
+
+# ============================================
+# Git Configuration
+# ============================================
+# Keep git hooks in version control
+# (They are part of the project setup)
+!.git/hooks/pre-commit
