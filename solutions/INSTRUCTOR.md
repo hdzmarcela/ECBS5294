@@ -95,7 +95,7 @@ The hook will:
 ### 5. Release Passwords
 
 After the assignment due date:
-1. Announce password in Canvas
+1. Announce password in Moodle
 2. Update course schedule documentation
 3. Optionally, create a password release file (not in repo)
 
@@ -217,7 +217,7 @@ Examples:
 
 **Recovery**:
 - If ZIP was created recently, check `.encryption_log.txt` for filename/timestamp
-- Check Canvas announcements if already released
+- Check Moodle announcements if already released
 - In worst case, re-create solution and re-encrypt
 
 ## Collaboration with TAs

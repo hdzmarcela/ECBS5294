@@ -222,3 +222,963 @@ con.execute("SELECT * FROM 'data/file.parquet'")
 **AI Tool Policy**: AI assistants (ChatGPT/Claude/Copilot) are NOT permitted for graded work. Only assist with learning/understanding, not assignment completion.
 
 **Grading Components**: Correctness (40%), Data thinking (25%), Reproducibility (20%), Communication (15%)
+
+---
+
+## Adding New Day Materials (Day 2, Day 3, etc.)
+
+This section captures the workflow and patterns established during Day 1 development to ensure consistency across all course days.
+
+### Step-by-Step Workflow
+
+#### 1. Plan the Day Structure
+
+**Before creating any files:**
+- Review `syllabus.md` for the day's learning objectives
+- Identify what will be covered in Block A vs Block B
+- Determine what datasets will be needed
+- Plan the in-class exercise/deliverable
+- Identify the homework assignment
+
+**Key questions:**
+- What's the "hook" or motivating problem?
+- What real-world datasets exemplify these concepts?
+- What will students build/produce today?
+- How does this connect to previous days?
+
+#### 2. Gather or Create Datasets
+
+**Location:** `data/day{N}/`
+
+**Requirements:**
+- Use real-world datasets (prefer Kaggle with proper attribution)
+- Datasets should be "messy enough" to be instructive
+- Include intentional data quality issues students must handle
+- Size: 500-10K rows for exercises, 50K+ for SQL homework
+- All datasets must work **offline** (no API keys required for class)
+
+**Create data README:**
+```markdown
+# Day {N} Dataset: {Name}
+
+**Source:** {URL}
+**License:** {License}
+**File:** `{filename}`
+
+## Dataset Description
+[Description of what the data represents]
+
+## Intentional Data Quality Issues
+[List the messiness students will encounter]
+
+## What "Clean" Looks Like
+[Success criteria for cleaning]
+```
+
+**Example:** See `data/day1/README.md`
+
+#### 3. Create Teaching Notebooks
+
+**Naming convention:**
+```
+notebooks/day{N}_block_{a|b}_NN_{topic}.ipynb
+```
+
+**Examples:**
+- `day2_block_a_01_joins_basics.ipynb`
+- `day2_block_a_02_join_patterns.ipynb`
+- `day2_block_b_01_json_ingestion.ipynb`
+
+**Structure each teaching notebook with:**
+1. **Title cell** (Markdown):
+   ```markdown
+   # Day {N}, Block {A|B}: {Topic Title}
+
+   **Learning Objectives:**
+   - Objective 1
+   - Objective 2
+   ```
+
+2. **Setup cell** (Code):
+   ```python
+   import pandas as pd
+   import numpy as np
+   import duckdb
+
+   # Use relative paths from repo root
+   DATA_DIR = "data/day{N}"
+   ```
+
+3. **Teaching sections** with:
+   - Clear markdown explanations (why, not just how)
+   - Worked examples with real data
+   - Common pitfalls demonstrated
+   - Best practices called out
+
+4. **Check your understanding** mini-exercises:
+   - 2-3 small problems per major concept
+   - Solutions provided inline (it's a teaching notebook)
+
+**Quality checklist:**
+- ✅ All cells run in order (Restart & Run All)
+- ✅ Relative paths only
+- ✅ Clear explanations in markdown cells
+- ✅ Code comments for complex operations
+- ✅ Real data, real problems
+- ✅ Links to reference materials where appropriate
+
+#### 4. Create In-Class Exercise
+
+**Naming convention:**
+```
+notebooks/day{N}_exercise_{topic}.ipynb
+```
+
+**Examples:**
+- `day2_exercise_joins.ipynb`
+- `day2_exercise_json_pipeline.ipynb`
+
+**Structure:**
+1. **Clear deliverable** stated upfront
+2. **Starter code** with TODOs:
+   ```python
+   # TODO: Load the customers table
+   # TODO: Join with orders table
+   # TODO: Calculate total revenue per customer
+   ```
+3. **Validation cells** students should complete:
+   ```python
+   # Validate: Check that customer_id is unique
+   assert customers['customer_id'].is_unique, "Duplicate customer IDs!"
+   ```
+4. **Markdown prompts** guiding students:
+   ```markdown
+   ## Task 1: Load and Explore
+
+   Load the `customers.csv` file and explore:
+   - How many customers?
+   - Any missing values?
+   - What's the primary key?
+   ```
+
+**In-class deliverable requirements:**
+- Completable in 30-45 minutes (not full homework)
+- Uses concepts taught earlier in the same block
+- Has clear success criteria
+- Includes validation assertions
+
+#### 5. Create Exercise Solution
+
+**Naming convention:**
+```
+notebooks/day{N}_exercise_{topic}_solution.ipynb
+```
+
+**Structure:**
+- Same as exercise but with TODOs completed
+- Add **explanation markdown cells** after each solution:
+  ```markdown
+  **Why this approach?** We use an INNER JOIN here because we only want customers who have placed orders. A LEFT JOIN would include customers with zero orders, which we don't need for this analysis.
+  ```
+- Show alternative approaches where appropriate
+- Include all assertions passing
+
+**CRITICAL: Encrypt before committing!**
+```bash
+python scripts/encrypt_solutions.py \
+  notebooks/day{N}_exercise_{topic}_solution.ipynb \
+  --password "secure-password" \
+  --day {N} \
+  --block {A|B}
+```
+
+#### 6. Create Teacher Primer
+
+**Location:** `references/teaching/day{N}_block_{a|b}_teacher_primer.md`
+
+**Purpose:** Guidance for the instructor (or future you)
+
+**Structure:**
+```markdown
+# Day {N}, Block {A|B}: {Topic}
+## Teacher Primer
+
+**Duration:** 90 minutes
+**Audience:** {Context about student level}
+
+## Learning Objectives
+[Bullet list of what students will be able to do]
+
+## Session Flow (90 minutes)
+### 1. Hook: {Motivating Problem} (10 min)
+### 2. Core Concept 1 (20 min)
+### 3. Core Concept 2 (20 min)
+### 4. Demo/Live Coding (15 min)
+### 5. Exercise Setup (10 min)
+### 6. Work Time + Circulation (15 min)
+
+## Materials Required
+- Teaching notebooks
+- Dataset
+- Exercise starter
+- Solution (encrypted)
+
+## Pedagogical Notes
+[Tips for teaching, common confusions, good examples]
+
+## Connection to Later Material
+[How this builds toward future days]
+```
+
+**Example:** See `references/teaching/day1_block_a_teacher_primer.md`
+
+#### 7. Create Optional Block Intro Slides
+
+**Location:** `slides/day{N}_block_{a|b}_intro.md`
+
+**Purpose:** Quick 3-minute context setter at start of block
+
+**Structure:**
+```markdown
+---
+marp: true
+theme: ceu
+paginate: true
+header: 'Day {N}, Block {A|B}: {Topic}'
+footer: 'ECBS5294 | CEU'
+---
+
+<!-- _class: lead -->
+
+# Block {A|B}
+## {Topic Title}
+
+**90 minutes**
+
+---
+
+# What We'll Cover
+
+1. {Topic 1}
+2. {Topic 2}
+3. {Hands-on component}
+
+---
+
+# Learning Objectives
+
+By the end of this block, you'll be able to:
+
+✅ {Objective 1}
+✅ {Objective 2}
+✅ {Objective 3}
+
+---
+
+# Key Dataset
+
+**{Dataset Name}**
+- {Key fact about dataset}
+- {Why it's interesting}
+
+---
+
+# Materials for Today
+
+**Teaching notebooks:**
+- `day{N}_block_{a|b}_01_....ipynb`
+
+**Exercise:**
+- `day{N}_exercise_{topic}.ipynb`
+
+**Quick reference:**
+- `references/{topic}_quick_reference.md`
+
+---
+
+<!-- _class: lead -->
+
+# Let's Begin
+
+Open the teaching notebook:
+`day{N}_block_{a|b}_01_....ipynb`
+
+{Transition statement}
+```
+
+**Important:**
+- Keep it SHORT (5-6 slides max)
+- No deep content, just roadmap
+- Consistent format with other days
+
+#### 8. Create Quick Reference Materials
+
+**Location:** `references/{topic}_quick_reference.md`
+
+**Purpose:** Student cheat sheet for the topic
+
+**Structure:**
+```markdown
+# {Topic} Quick Reference Card
+
+**ECBS5294 - Introduction to Data Science: Working with Data**
+
+---
+
+## Core Concepts
+
+[2-3 key ideas, clearly stated]
+
+---
+
+## Common Patterns
+
+| Pattern | Example | When to Use |
+|---------|---------|-------------|
+| ... | ... | ... |
+
+---
+
+## Code Snippets
+
+```python
+# Pattern 1: {Name}
+{common code pattern}
+```
+
+---
+
+## Decision Framework
+
+Ask yourself:
+1. {Question 1}
+2. {Question 2}
+
+---
+
+## Common Mistakes
+
+❌ **Don't do this:** {anti-pattern}
+✅ **Do this instead:** {correct pattern}
+
+---
+
+**More resources:**
+- Teaching notebook: `notebooks/...`
+- Cheat sheet: `references/...`
+```
+
+**Examples:** See `references/tidy_data_checklist.md`, `references/sql_quick_reference.md`
+
+#### 9. Create Homework Assignment
+
+**Location:** `assignments/hw{N}/`
+
+**Required files:**
+```
+assignments/hw{N}/
+├── README.md          # Full assignment description
+├── hw{N}_starter.ipynb (optional - if providing starter code)
+└── data/              (optional - if assignment-specific data)
+```
+
+**README.md structure:**
+```markdown
+# Homework {N}: {Title}
+
+**Course:** ECBS5294
+**Due:** Day {N+1}, Start of Class
+**Total Points:** 100 (+ bonus)
+**Est. Time:** {X} hours
+
+---
+
+## 📋 Overview
+[What this assignment tests]
+
+---
+
+## 🎯 Learning Objectives
+[Skills demonstrated]
+
+---
+
+## 📊 Dataset
+[Description, size, source, quirks]
+
+---
+
+## 📝 Assignment Structure
+
+### Part 1: {Topic} (X points)
+[Requirements]
+
+### Part 2: {Topic} (X points)
+[Requirements]
+
+### Bonus (X points)
+[Extra credit]
+
+---
+
+## 📤 Submission Requirements
+
+**What to Submit:**
+1. Completed notebook: `hw{N}_[your_name].ipynb`
+
+**Format Requirements:**
+- File must run: **Restart & Run All**
+- All outputs visible
+- Markdown explanations where requested
+
+**How to Submit:**
+- Upload to Moodle
+- Due: {Day} at start of class
+
+**Before Submitting - Checklist:**
+- [ ] All TODO sections completed
+- [ ] Notebook runs end-to-end without errors
+- [ ] All query results visible
+- [ ] Markdown explanations included
+- [ ] File renamed to `hw{N}_[your_name].ipynb`
+
+---
+
+## 🎯 Grading Rubric
+
+| Criterion | Weight | Description |
+|-----------|--------|-------------|
+| Correctness | 40% | {What correct looks like} |
+| Data Thinking | 25% | {What good thinking looks like} |
+| Code Quality | 20% | {What clean code looks like} |
+| Communication | 15% | {What clear docs look like} |
+
+---
+
+## 💡 Tips for Success
+[Practical advice]
+
+---
+
+## 🚫 Academic Integrity
+[Reminder of AI policy and what's allowed/not allowed]
+
+---
+
+## ❓ Getting Help
+[Office hours, Moodle, email]
+```
+
+**Example:** See `assignments/hw1/README.md`
+
+**Create solution:**
+```
+assignments/hw{N}/hw{N}_solution.ipynb
+```
+**CRITICAL: Encrypt before committing!**
+
+#### 10. Update Main Course Materials
+
+**Update `README.md`:**
+- If Day 2/3 materials change the repo structure, update the directory tree
+- Generally, Day 1 README should be comprehensive enough not to need updates
+
+**Update `syllabus.md`:**
+- Should already have Day 2/3 outlined
+- Double-check learning objectives match what you built
+- Verify due dates and deliverables
+
+**Update `slides/` (if adding kickoff for Day 2/3):**
+- Usually Day 1 kickoff is sufficient
+- Consider adding a "Day 2 Kickoff" slide (5 slides max) if:
+  - Returning after a week break
+  - Major context switch in content
+  - Need to review Day 1 concepts
+
+#### 11. Build and Test Everything
+
+**Before committing:**
+
+```bash
+# 1. Test all teaching notebooks
+jupyter nbconvert --execute --to notebook \
+  notebooks/day{N}_*.ipynb
+
+# 2. Test exercise starter (should run with TODOs)
+jupyter nbconvert --execute --to notebook \
+  notebooks/day{N}_exercise_*.ipynb
+
+# 3. Test solution (should run completely)
+jupyter nbconvert --execute --to notebook \
+  notebooks/day{N}_*_solution.ipynb
+
+# 4. Build slides
+./scripts/build_slides.sh
+
+# 5. Check solution status
+python scripts/list_solutions.py
+
+# 6. Verify no unencrypted solutions
+git status | grep solution
+# (Should only show encrypted ZIPs!)
+```
+
+**Quality checklist:**
+- ✅ All notebooks run end-to-end
+- ✅ All relative paths work from repo root
+- ✅ All datasets are in `data/` and referenced correctly
+- ✅ All solutions encrypted
+- ✅ Slides build without errors
+- ✅ README files have no broken links
+- ✅ Consistent terminology throughout
+- ✅ No year-specific dates (except syllabus.md)
+
+#### 12. Commit and Push
+
+**Commit strategy:** Separate commits for different components
+
+```bash
+# Commit teaching materials
+git add notebooks/day{N}_block_*
+git add references/teaching/day{N}_*
+git commit -m "Add Day {N} teaching materials: {topics}"
+
+# Commit exercise and encrypted solution
+git add notebooks/day{N}_exercise_*.ipynb
+git add solutions/solutions-day{N}-*.zip
+git commit -m "Add Day {N} exercise and encrypted solutions"
+
+# Commit homework assignment
+git add assignments/hw{N}/
+git commit -m "Add Homework {N}: {title}"
+
+# Commit datasets
+git add data/day{N}/
+git commit -m "Add Day {N} datasets: {description}"
+
+# Commit slides (if any)
+git add slides/day{N}_*
+./scripts/build_slides.sh
+git commit -m "Add Day {N} slide decks"
+
+# Push everything
+git push origin main
+```
+
+---
+
+## File Naming Conventions Reference
+
+### Notebooks
+```
+day{N}_block_{a|b}_NN_{topic}.ipynb       # Teaching notebook
+day{N}_exercise_{topic}.ipynb             # In-class exercise
+day{N}_exercise_{topic}_solution.ipynb    # Exercise solution (ENCRYPT!)
+day{N}_setup_check.ipynb                  # Environment check
+```
+
+### Data
+```
+data/day{N}/                              # All Day N datasets
+data/day{N}/README.md                     # Data documentation
+data/day{N}/{dataset_name}.csv            # Actual data files
+```
+
+### Slides
+```
+slides/day{N}_kickoff.md                  # Day kickoff (optional)
+slides/day{N}_block_{a|b}_intro.md        # Block intro (optional)
+```
+
+### References
+```
+references/{topic}_quick_reference.md     # Student cheat sheet
+references/teaching/day{N}_block_{a|b}_teacher_primer.md  # Instructor guide
+references/datasets/{source}_info.md      # Dataset provenance notes
+references/papers/{paper}_summary.md      # Academic paper summaries
+```
+
+### Assignments
+```
+assignments/hw{N}/README.md               # Full assignment description
+assignments/hw{N}/hw{N}_starter.ipynb     # Starter code (optional)
+assignments/hw{N}/hw{N}_solution.ipynb    # Solution (ENCRYPT!)
+```
+
+### Solutions (Encrypted)
+```
+solutions/solutions-day{N}-block{A|B}.zip  # Exercise solutions
+solutions/solutions-hw{N}.zip              # Homework solutions
+```
+
+---
+
+## Content Development Best Practices
+
+### Evergreen Content Principles
+
+**Goal:** Materials should be reusable year after year with minimal edits.
+
+**DO:**
+- ✅ Use relative dates: "Day 1", "Day 2", "start of next class"
+- ✅ Reference `syllabus.md` for specific dates
+- ✅ Use generic language: "this year", "current term"
+- ✅ Link to external docs by concept, not by URL (URLs change)
+- ✅ Use "check Moodle" not "check Moodle at https://..."
+
+**DON'T:**
+- ❌ Hardcode year-specific dates: "October 8, 2025"
+- ❌ Reference current events that will be outdated
+- ❌ Use semester-specific examples: "like we discussed in Fall 2024"
+- ❌ Link to time-sensitive URLs: "see this week's announcement"
+
+**Exception:** `syllabus.md` is the ONLY file that gets year-specific dates. Update it each term.
+
+### Business Focus
+
+**This is an MSBA course.** Every concept should connect to business value.
+
+**Frame technical concepts with business impact:**
+- ❌ "A LEFT JOIN returns all rows from the left table"
+- ✅ "A LEFT JOIN ensures you see ALL customers, even those who haven't ordered yet—critical for customer retention analysis"
+
+**Use business-relevant datasets:**
+- Retail transactions, customer behavior, sales data
+- Operational metrics, supply chain, logistics
+- Marketing campaigns, A/B tests, user engagement
+- Avoid academic datasets (iris, mtcars) unless making a specific pedagogical point
+
+**Include stakeholder communication:**
+- Data dictionaries (define metrics for non-technical audiences)
+- Assumption documentation (what decisions did you make and why?)
+- Limitation notes (what CAN'T this analysis answer?)
+- Executive summaries (8-10 sentences for a VP)
+
+### Real-World Messiness
+
+**Don't sanitize the data too much.** Students need to encounter real problems.
+
+**Include common issues:**
+- Mixed date formats in same column
+- Currency symbols and comma separators in numbers
+- Multiple representations of missing: NULL, "N/A", "", "UNKNOWN", -999
+- Duplicate primary keys (data quality issue to catch!)
+- Inconsistent capitalization/spelling
+- Sentinel values: "ERROR", "REDACTED", "TBD"
+
+**But don't make it impossible:**
+- Issues should be discoverable (show up in .info() or .describe())
+- Issues should be fixable with concepts taught
+- Document the issues in data README so instructor knows what's intentional
+
+### Validation as Code
+
+**Teach students to PROVE their data is correct.**
+
+**Every notebook should include assertions:**
+```python
+# Primary key uniqueness
+assert df['customer_id'].is_unique, "Duplicate customer IDs found!"
+
+# Required fields
+assert df['order_date'].notna().all(), "NULL order dates found!"
+
+# Data integrity
+assert (df['total'] == df['quantity'] * df['price']).all(), "Total != quantity * price!"
+
+# Date ranges
+assert df['order_date'].min() >= pd.Timestamp('2020-01-01'), "Orders before 2020!"
+```
+
+**Frame as "trust but verify":**
+- Not paranoia, just good engineering
+- Catches upstream data quality issues early
+- Proves to stakeholders that data is clean
+
+### Reproducibility Standards
+
+**EVERY notebook must run from a clean state.**
+
+**Test procedure:**
+```python
+# 1. Restart kernel
+# 2. Run All Cells
+# 3. No errors
+```
+
+**Common reproducibility issues to avoid:**
+- Absolute paths: `/Users/instructor/data/file.csv` ❌
+- Relative paths: `data/day1/file.csv` ✅
+- Hidden state: Variables defined out of order
+- External dependencies: API keys, network resources (unless cached)
+- Platform-specific code: Windows-only, Mac-only paths
+
+**Include environment check:**
+```python
+# At top of notebooks
+import sys
+print(f"Python: {sys.version}")
+print(f"Pandas: {pd.__version__}")
+print(f"DuckDB: {duckdb.__version__}")
+
+# Check data file exists
+import os
+assert os.path.exists("data/day1/file.csv"), "Data file not found! Check your working directory."
+```
+
+---
+
+## Slide Development Guidelines
+
+### Marp Best Practices
+
+**Keep slides MINIMAL:**
+- 10-15 slides for 10-minute kickoff
+- 5-6 slides for 3-minute block intro
+- One idea per slide
+- Use bullet points sparingly (3-5 max)
+
+**Font sizes (already configured in theme):**
+- Base text: 24px
+- H1: 48px
+- H2: 36px
+- H3: 28px
+- Don't override unless absolutely necessary
+
+**Test on projector:**
+- Text should be readable from back of room
+- Code blocks should be large enough (0.75em in theme)
+- Don't put critical info in footer (hard to read)
+
+**Use speaker notes:**
+```markdown
+---
+# Slide Title
+
+Content here
+
+<!--
+Speaker notes: Remember to mention the business impact!
+Transition: "Now let's see this in action with real data..."
+-->
+```
+
+### Slide Structure Patterns
+
+**Title slide (lead class):**
+```markdown
+<!-- _class: lead -->
+<!-- _paginate: false -->
+
+# {Course Title}
+## {Subtitle}
+
+**{Course Code}**
+
+{Institution}
+```
+
+**Content slide (standard):**
+```markdown
+# {Section Title}
+
+**{Key point}** – {Elaboration}
+
+{Supporting details as bullets if needed}
+
+{Transition statement at bottom}
+```
+
+**Code slide:**
+```markdown
+# {Concept}
+
+```{language}
+{code example}
+```
+
+{Brief explanation of what the code does}
+```
+
+**Callout slide:**
+```markdown
+# {Important Concept}
+
+> **"{Memorable quote or principle}"**
+
+{Context or elaboration}
+
+**{Why it matters}**
+```
+
+### Rebuild Process
+
+**After any slide edits:**
+```bash
+./scripts/build_slides.sh
+open slides/output/day{N}_*.html
+```
+
+**Check for:**
+- Text cutoff at bottom (add `<!-- fit -->` if needed)
+- Code readability (reduce font if too large)
+- Emoji rendering (emojis are OK, but test display)
+- Link formatting (should be blue and clickable)
+
+---
+
+## Platform-Specific Details
+
+### Moodle (Not Canvas!)
+
+**Terminology:**
+- ✅ "Check Moodle for announcements"
+- ✅ "Upload to Moodle"
+- ✅ "Posted on Moodle"
+- ❌ "Check Canvas" (wrong LMS!)
+
+**Moodle URL pattern:**
+```
+https://ceulearning.ceu.edu/mod/forum/post.php?forum=XXXXX
+```
+
+**When referencing Moodle:**
+- Generic: "Check Moodle for password release dates"
+- Don't hardcode forum IDs (they change per course instance)
+
+### GitHub Repository
+
+**Primary URL:**
+```
+https://github.com/earino/ECBS5294
+```
+
+**Clone command:**
+```bash
+git clone https://github.com/earino/ECBS5294.git
+```
+
+**Reference in materials:**
+- Always provide both URL and clone command
+- Remind students: "This repo has everything you need"
+- Point to specific files: `notebooks/day1_*.ipynb`
+
+### CEU Branding
+
+**Slide theme colors:**
+- Primary: `#1a4d7a` (CEU dark blue)
+- Accent: `#3498db` (bright blue)
+- Emphasis: `#c0392b` (red for strong text)
+
+**Official name:**
+- "Central European University" (full)
+- "CEU" (abbreviated)
+- Not "CEU Vienna" or "CEU Budapest" (institution is one entity)
+
+**Instructor contact:**
+- Email: RubiaE@ceu.edu
+- WhatsApp: +34 654 69 13 63
+- Office: Room A104
+- Office hours: By appointment
+
+---
+
+## Quality Assurance Checklist
+
+**Before ANY commit, verify:**
+
+### Notebooks
+- [ ] All notebooks run with "Restart & Run All"
+- [ ] Relative paths only (no `/Users/...`)
+- [ ] Clear markdown explanations between code cells
+- [ ] Assertions included for data quality checks
+- [ ] Outputs visible (don't clear outputs before committing)
+- [ ] No API keys or passwords in code
+- [ ] Data files referenced exist in `data/` directory
+
+### Solutions
+- [ ] Solutions are encrypted (`.zip` files only in git)
+- [ ] Passwords documented in `solutions/PASSWORDS.md` (gitignored)
+- [ ] `python scripts/list_solutions.py` shows all solutions encrypted
+- [ ] Pre-commit hook is active and passes
+- [ ] Decryption tested: `python scripts/decrypt_solution.py solutions/solutions-*.zip`
+
+### Slides
+- [ ] Slides build without errors: `./scripts/build_slides.sh`
+- [ ] No text cutoff at bottom of slides
+- [ ] Code blocks are readable
+- [ ] Consistent theme across all slide decks
+- [ ] Speaker notes included where helpful
+- [ ] Marp front matter correct (theme, paginate, header, footer)
+
+### Documentation
+- [ ] README files have no broken links
+- [ ] Dataset documentation includes source and license
+- [ ] Quick reference materials are concise (1-2 pages)
+- [ ] Teacher primers include timing and pedagogical notes
+- [ ] No year-specific dates except in `syllabus.md`
+
+### Content Quality
+- [ ] Business framing included (not just technical)
+- [ ] Real-world datasets with intentional messiness
+- [ ] Validation assertions demonstrate data quality checks
+- [ ] Stakeholder communication examples included
+- [ ] Consistent terminology throughout materials
+
+### Platform References
+- [ ] "Moodle" not "Canvas"
+- [ ] GitHub URL: `https://github.com/earino/ECBS5294`
+- [ ] Instructor email: `RubiaE@ceu.edu`
+- [ ] No hardcoded forum IDs or time-sensitive links
+
+### Git Hygiene
+- [ ] Logical commit messages (what and why)
+- [ ] Small, focused commits (not giant "add everything" commits)
+- [ ] Committed files only (no `git add .` without checking)
+- [ ] `.gitignore` prevents accidental commits of solutions/data
+- [ ] Pre-commit hook active: `./scripts/setup_hooks.sh`
+
+---
+
+## Common Pitfalls to Avoid
+
+### Don't:
+- ❌ Commit unencrypted solutions (pre-commit hook will block, but don't test it!)
+- ❌ Use absolute paths (`/Users/instructor/...`)
+- ❌ Reference "Canvas" (we use Moodle)
+- ❌ Put year-specific dates in teaching materials
+- ❌ Create "perfect" datasets (students need messiness)
+- ❌ Write notebooks that only work on your machine
+- ❌ Skip validation assertions (students need to see the pattern)
+- ❌ Forget business framing (this isn't a CS course)
+- ❌ Make slides text-heavy (keep it minimal)
+- ❌ Forget to rebuild slides after edits
+
+### Do:
+- ✅ Test "Restart & Run All" on every notebook
+- ✅ Use relative paths from repo root
+- ✅ Encrypt solutions before committing
+- ✅ Include business context and stakeholder communication
+- ✅ Add data quality checks with assertions
+- ✅ Document your assumptions
+- ✅ Keep materials evergreen (reusable next year)
+- ✅ Frame concepts with real-world examples
+- ✅ Test slides on a projector (or full-screen preview)
+- ✅ Commit early and often with clear messages
+
+---
+
+## Need Help?
+
+**For AI assistants working on this repo:**
+If you're unsure about a pattern or convention:
+1. Look at Day 1 materials as the reference implementation
+2. Check this CLAUDE.md file for guidance
+3. Maintain consistency with existing materials
+4. When in doubt, ask the human for clarification
+
+**For humans working on this repo:**
+- Primary contact: Eduardo Ariño de la Rubia (RubiaE@ceu.edu)
+- All patterns established during Day 1 development
+- This CLAUDE.md file is the source of truth for conventions
+- Update this file if you establish new patterns!

@@ -116,7 +116,7 @@ Tests: Synthesis of multiple concepts
 ### Submission Format
 
 - **File name:** `hw1_[your_name].ipynb` (e.g., `hw1_john_smith.ipynb`)
-- **How:** Upload to course management system (Moodle/Canvas)
+- **How:** Upload to Moodle
 - **When:** Before start of Day 2 class
 
 ### Before Submitting - Checklist
