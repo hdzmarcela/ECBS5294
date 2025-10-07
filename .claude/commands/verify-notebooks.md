@@ -53,23 +53,28 @@ For EVERY code cell, check:
 
 ## Notebooks to Verify
 
+**IMPORTANT:** Use the Glob tool to auto-discover notebooks matching these patterns:
+
 ### Teaching Notebooks (highest priority)
-```
-notebooks/day1_block_a_tidy_foundations.ipynb
-notebooks/day1_block_b_01_sql_foundations.ipynb
-notebooks/day1_block_b_02_aggregations.ipynb
-notebooks/day1_block_b_03_window_functions.ipynb
-```
+**Pattern:** `notebooks/day*_block_*.ipynb`
+- Matches: `day1_block_a_*.ipynb`, `day2_block_b_*.ipynb`, `day3_block_a_*.ipynb`, etc.
+- Excludes: exercise notebooks, solution notebooks
 
 ### Exercise Notebooks (verify but don't fix student sections)
-```
-notebooks/day1_exercise_tidy.ipynb
-```
+**Pattern:** `notebooks/day*_exercise_*.ipynb`
+- Matches: `day1_exercise_tidy.ipynb`, `day2_exercise_joins.ipynb`, etc.
+- Excludes: solution files (those end in `_solution.ipynb`)
 
 ### Assignment Notebooks (if they exist)
-```
-assignments/hw1/hw1_starter.ipynb
-```
+**Pattern:** `assignments/hw*/hw*_starter.ipynb`
+- Matches: `assignments/hw1/hw1_starter.ipynb`, `assignments/hw2/hw2_starter.ipynb`, etc.
+- Excludes: solution files
+
+**Verification Strategy:**
+1. First, use Glob with pattern `notebooks/day*_block_*.ipynb` to find all teaching notebooks
+2. Then, use Glob with pattern `notebooks/day*_exercise_*.ipynb` to find exercise notebooks
+3. Finally, use Glob with pattern `assignments/hw*/hw*_starter.ipynb` to find assignments
+4. Launch parallel verification agents for ALL discovered notebooks
 
 ---
 
@@ -113,7 +118,11 @@ For each notebook, produce a report:
 
 1. **Identify notebooks to verify**
    - If user specified paths, use those
-   - Otherwise, verify ALL teaching notebooks
+   - Otherwise, use Glob tool to auto-discover:
+     - `notebooks/day*_block_*.ipynb` (teaching notebooks)
+     - `notebooks/day*_exercise_*.ipynb` (exercise notebooks)
+     - `assignments/hw*/hw*_starter.ipynb` (assignment notebooks)
+   - This ensures NEW notebooks are automatically included (Day 2, Day 3, etc.)
 
 2. **Launch parallel agents** (one per notebook)
    ```
