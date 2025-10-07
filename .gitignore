@@ -118,6 +118,15 @@ build/
 .kaggle/kaggle.json
 
 # ============================================
+# Slides
+# ============================================
+# Generated slide output (HTML/PDF/PPTX)
+slides/output/
+*.html
+*.pdf
+*.pptx
+
+# ============================================
 # Git Configuration
 # ============================================
 # Keep git hooks in version control

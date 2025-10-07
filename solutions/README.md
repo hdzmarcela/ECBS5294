@@ -28,11 +28,11 @@ Examples:
 
 ### 1. Check the Password Release Schedule
 
-Passwords are released after the assignment due date. Check Canvas or the course schedule for release dates.
+Passwords are released after the assignment due date. Check Moodle or the course schedule for release dates.
 
 ### 2. View Available Passwords
 
-Once released, passwords will be announced in Canvas and documented in the course materials.
+Once released, passwords will be announced in Moodle and documented in the course materials.
 
 ### 3. Decrypt a Solution File
 
@@ -105,4 +105,4 @@ If you have trouble accessing solutions:
 
 ---
 
-**Questions?** Contact the instructor or TA through Canvas.
+**Questions?** Contact the instructor or TA through Moodle.

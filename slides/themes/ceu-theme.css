@@ -1,0 +1,361 @@
+/* ============================================
+   CEU Custom Theme for Marp Presentations
+   ECBS5294: Working with Data
+   ============================================ */
+
+/* @theme ceu */
+
+/* ============================================
+   Base Section Styling
+   ============================================ */
+
+section {
+  background: #ffffff;
+  color: #2c3e50;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  padding: 40px 70px;
+  line-height: 1.5;
+}
+
+/* ============================================
+   Headers
+   ============================================ */
+
+h1 {
+  color: #1a4d7a;
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 0.4em;
+  border-bottom: 4px solid #3498db;
+  padding-bottom: 0.25em;
+}
+
+h2 {
+  color: #2980b9;
+  font-size: 36px;
+  font-weight: 600;
+  margin-top: 0.6em;
+  margin-bottom: 0.4em;
+}
+
+h3 {
+  color: #34495e;
+  font-size: 28px;
+  font-weight: 600;
+  margin-top: 0.5em;
+  margin-bottom: 0.3em;
+}
+
+/* ============================================
+   Text & Paragraphs
+   ============================================ */
+
+p {
+  margin: 0.6em 0;
+  line-height: 1.5;
+}
+
+strong {
+  color: #c0392b;
+  font-weight: 700;
+}
+
+em {
+  color: #8e44ad;
+  font-style: italic;
+}
+
+/* ============================================
+   Lists
+   ============================================ */
+
+ul, ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+li {
+  margin: 0.3em 0;
+  line-height: 1.4;
+}
+
+ul ul, ol ul, ul ol, ol ol {
+  margin: 0.3em 0;
+  font-size: 0.95em;
+}
+
+/* Checkmarks and X marks */
+li::marker {
+  color: #3498db;
+  font-weight: bold;
+}
+
+/* ============================================
+   Code Blocks
+   ============================================ */
+
+code {
+  background: #ecf0f1;
+  color: #c0392b;
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+}
+
+pre {
+  background: #2c3e50;
+  color: #ecf0f1;
+  padding: 1em;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-size: 0.75em;
+  line-height: 1.5;
+  margin: 1em 0;
+}
+
+pre code {
+  background: transparent;
+  color: #ecf0f1;
+  padding: 0;
+  font-size: 1em;
+}
+
+/* ============================================
+   Tables
+   ============================================ */
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  font-size: 0.85em;
+}
+
+th {
+  background: #3498db;
+  color: white;
+  padding: 0.6em 1em;
+  text-align: left;
+  font-weight: 600;
+}
+
+td {
+  padding: 0.6em 1em;
+  border-bottom: 1px solid #bdc3c7;
+}
+
+tr:nth-child(even) {
+  background: #ecf0f1;
+}
+
+tr:hover {
+  background: #d5dbdb;
+}
+
+/* ============================================
+   Blockquotes
+   ============================================ */
+
+blockquote {
+  border-left: 6px solid #3498db;
+  background: #ebf5fb;
+  padding: 0.6em 1.2em;
+  margin: 0.8em 0;
+  font-style: italic;
+  color: #2c3e50;
+  border-radius: 4px;
+  font-size: 0.95em;
+}
+
+blockquote p {
+  margin: 0;
+}
+
+blockquote strong {
+  color: #1a4d7a;
+}
+
+/* ============================================
+   Links
+   ============================================ */
+
+a {
+  color: #3498db;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s;
+}
+
+a:hover {
+  border-bottom-color: #3498db;
+}
+
+/* ============================================
+   Header & Footer
+   ============================================ */
+
+header {
+  position: absolute;
+  top: 20px;
+  left: 70px;
+  right: 70px;
+  font-size: 16px;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+footer {
+  position: absolute;
+  bottom: 20px;
+  left: 70px;
+  right: 70px;
+  font-size: 16px;
+  color: #7f8c8d;
+  text-align: right;
+}
+
+/* ============================================
+   Lead Slides (Title/Section Breaks)
+   ============================================ */
+
+section.lead {
+  background: linear-gradient(135deg, #1a4d7a 0%, #2980b9 100%);
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 70px;
+}
+
+section.lead h1 {
+  color: white;
+  border-bottom: none;
+  font-size: 60px;
+  margin-bottom: 0.3em;
+}
+
+section.lead h2 {
+  color: #ecf0f1;
+  font-size: 42px;
+  font-weight: 400;
+  margin-top: 0;
+}
+
+section.lead p {
+  color: #ecf0f1;
+  font-size: 28px;
+  margin-top: 1em;
+}
+
+/* ============================================
+   Pagination
+   ============================================ */
+
+section::after {
+  position: absolute;
+  bottom: 20px;
+  right: 70px;
+  font-size: 18px;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+/* Hide page numbers on lead slides */
+section.lead::after {
+  display: none;
+}
+
+/* ============================================
+   Special Classes
+   ============================================ */
+
+/* Two-column layout */
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+}
+
+/* Highlighted box */
+.highlight {
+  background: #fff3cd;
+  border-left: 6px solid #ffc107;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 4px;
+}
+
+/* Success box */
+.success {
+  background: #d4edda;
+  border-left: 6px solid #28a745;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 4px;
+}
+
+/* Warning box */
+.warning {
+  background: #f8d7da;
+  border-left: 6px solid #dc3545;
+  padding: 1em;
+  margin: 1em 0;
+  border-radius: 4px;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.small {
+  font-size: 0.8em;
+}
+
+.smaller {
+  font-size: 0.7em;
+}
+
+.large {
+  font-size: 1.2em;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+/* ============================================
+   Images
+   ============================================ */
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media screen and (max-width: 768px) {
+  section {
+    font-size: 24px;
+    padding: 40px 50px;
+  }
+
+  h1 {
+    font-size: 48px;
+  }
+
+  h2 {
+    font-size: 36px;
+  }
+}

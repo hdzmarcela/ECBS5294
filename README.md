@@ -44,7 +44,7 @@ By the end, you'll handle 500K-row datasets, write production-quality queries, a
 
 1. **Clone this repository:**
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/earino/ECBS5294.git
    cd ECBS5294
    ```
 
@@ -95,7 +95,14 @@ ECBS5294/
 │
 ├── scripts/                 # Utility scripts
 │   ├── decrypt_solution.py    # Extract encrypted solutions
-│   └── encrypt_solutions.py   # (Instructor use)
+│   ├── encrypt_solutions.py   # (Instructor use)
+│   └── build_slides.sh        # Generate HTML slides from Markdown
+│
+├── slides/                  # Marp-based presentation slides
+│   ├── day1_kickoff.md        # Course introduction (~10 min)
+│   ├── day1_block_a_intro.md  # Optional: Tidy data intro (~3 min)
+│   ├── day1_block_b_intro.md  # Optional: SQL intro (~3 min)
+│   └── themes/                # Custom CEU theme
 │
 ├── syllabus.md              # Full course syllabus with schedule
 ├── CLAUDE.md                # Repository development guide
@@ -121,7 +128,7 @@ ECBS5294/
 ### How to Use Solutions
 
 1. **Try the assignment first** – Even partial attempts build understanding
-2. **Check Canvas for password release dates** – Posted after deadlines
+2. **Check Moodle for password release dates** – Posted after deadlines
 3. **Decrypt when available:**
    ```bash
    python scripts/decrypt_solution.py solutions/solutions-day1-blockA.zip

@@ -65,7 +65,9 @@ By the end, students can:
 ## **Technical requirements**
 
 * **Software:** Python 3.x, JupyterLab or VS Code, DuckDB (Python or CLI), Git.
-* **Starter repo:** `/data`, `/notebooks`, `/assignments`, `/scripts`, `/solutions`, `/references`, `README.md`.
+* **Course repository:** https://github.com/earino/ECBS5294
+  * Clone before Day 1: `git clone https://github.com/earino/ECBS5294.git`
+  * Contains: `/data`, `/notebooks`, `/assignments`, `/scripts`, `/solutions`, `/references`
 * All teaching datasets are provided **offline**.
 
 ---
