@@ -148,7 +148,8 @@ To align with parallel courses (Coding 1, Data Science 1):
 - Encourages trying before looking
 - You can verify your work
 
-**Check Moodle** for password release dates.
+**Check Moodle** for password release dates:
+https://ceulearning.ceu.edu/course/view.php?id=19138
 
 ---
 
@@ -229,6 +230,24 @@ Everything you need is in this repo:
 - Assignments
 - Solutions (encrypted)
 - References
+
+---
+
+# Course Resources
+
+**🔗 Moodle (your home base):**
+https://ceulearning.ceu.edu/course/view.php?id=19138
+
+- Assignment submissions
+- Announcements
+- Solution passwords (released after due dates)
+- Grades
+- Discussion forum
+
+**📦 GitHub (all materials):**
+https://github.com/earino/ECBS5294
+
+**Bookmark both!**
 
 ---
 

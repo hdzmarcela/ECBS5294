@@ -72,6 +72,22 @@ By the end, students can:
 
 ---
 
+## **Course resources**
+
+* **Moodle:** https://ceulearning.ceu.edu/course/view.php?id=19138
+  * Announcements and updates
+  * Assignment submissions
+  * Solution password releases (after due dates)
+  * Discussion forum
+  * Grades
+
+* **GitHub repository:** https://github.com/earino/ECBS5294
+  * All course materials (notebooks, datasets, assignments)
+  * Teaching references and documentation
+  * Encrypted solutions (passwords on Moodle)
+
+---
+
 ## **Materials and references**
 
 * A. Turrell, *Coding for Economists* (selected chapters).  
