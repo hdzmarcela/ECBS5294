@@ -64,6 +64,65 @@ Before pushing any notebook:
 
 **If you skip this, students WILL find broken queries in class. Don't skip this.**
 
+### Notebook Output Management
+
+**Teaching notebooks must be committed WITHOUT outputs.** Students should execute notebooks themselves and see fresh results.
+
+#### Why Clear Outputs?
+
+1. **Learning by doing**: Students learn better by running code themselves
+2. **Clean diffs**: Git diffs are much cleaner without output noise
+3. **File size**: Notebooks with large outputs bloat the repository
+4. **Fresh start**: Students shouldn't see old/stale outputs from your machine
+
+#### Automated Output Clearing
+
+The repository has a **pre-commit hook** that automatically clears all notebook outputs before committing:
+
+```bash
+# Pre-commit hook automatically runs:
+# 1. Detects any .ipynb files being committed
+# 2. Clears their outputs using scripts/clear_notebook_outputs.py
+# 3. Re-stages the cleaned notebooks
+```
+
+**You don't need to do anything** - the hook handles it automatically when you commit.
+
+#### Manual Output Clearing
+
+If you need to clear outputs manually (for testing or cleanup):
+
+```bash
+# Clear all teaching notebooks
+python scripts/clear_notebook_outputs.py --all
+
+# Clear specific notebook
+python scripts/clear_notebook_outputs.py notebooks/day1_block_a_tidy_foundations.ipynb
+
+# Clear multiple notebooks
+python scripts/clear_notebook_outputs.py notebooks/day1_*.ipynb
+
+# Dry run (see what would be cleared)
+python scripts/clear_notebook_outputs.py --all --dry-run
+```
+
+#### Local Testing Workflow
+
+When developing teaching materials:
+
+1. **Work with outputs locally** (run cells, see results)
+2. **Test end-to-end** with "Restart & Run All"
+3. **Verify all queries return data** (per checklist above)
+4. **Commit when ready** - pre-commit hook clears outputs automatically
+5. **Pull/clone will have clean notebooks** - students run from scratch
+
+#### Solution Notebooks Exception
+
+**Solution notebooks are handled differently:**
+- They're gitignored (never committed unencrypted)
+- They can keep outputs (students won't see them)
+- Only encrypted ZIPs are committed (see Solution File Management)
+
 ---
 
 ## Project Structure
@@ -156,6 +215,7 @@ solutions/.encryption_log.txt
 
 ### Available Scripts
 
+- **`scripts/clear_notebook_outputs.py`** - Clear outputs from Jupyter notebooks (manual use)
 - **`scripts/encrypt_solutions.py`** - Create password-protected solution ZIPs
 - **`scripts/decrypt_solution.py`** - Extract encrypted solutions (instructor/TA use)
 - **`scripts/list_solutions.py`** - Show status of all solutions (encrypted vs unencrypted)
@@ -1149,10 +1209,10 @@ git clone https://github.com/earino/ECBS5294.git
 
 ### Notebooks
 - [ ] All notebooks run with "Restart & Run All"
+- [ ] Notebook outputs cleared (pre-commit hook does this automatically)
 - [ ] Relative paths only (no `/Users/...`)
 - [ ] Clear markdown explanations between code cells
 - [ ] Assertions included for data quality checks
-- [ ] Outputs visible (don't clear outputs before committing)
 - [ ] No API keys or passwords in code
 - [ ] Data files referenced exist in `data/` directory
 
