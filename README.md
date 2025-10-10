@@ -28,7 +28,7 @@ By the end, you'll handle 500K-row datasets, write production-quality queries, a
 **Instructor:** Eduardo Ariño de la Rubia  
 **Email:** RubiaE@ceu.edu  
 **Office:** Room A104  
-**Office Hours:** [Schedule at cal.me/earino](https://cal.me/earino)
+**Office Hours:** [Schedule at cal.com/earino](https://cal.com/earino)
 
 **Format:** Three full-day sessions (2 blocks per day)  
 **Credits:** 1.0 (runs alongside Coding 1 and Data Science 1)

@@ -207,5 +207,5 @@ By the end, students can:
 
 **Email**: RubiaE@ceu.edu  
 **Office**: Room A104  
-**Office hours**: [Schedule at cal.me/earino](https://cal.me/earino)
+**Office hours**: [Schedule at cal.com/earino](https://cal.com/earino)
 
