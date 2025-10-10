@@ -202,11 +202,10 @@ By the end, students can:
 
 ## **Contact details**
 
-**Instructor**: Eduardo Ariño de la Rubia
+**Instructor**: Eduardo Ariño de la Rubia  
 **Department**: Economics and Business, Central European University
 
-**Email**: RubiaE@ceu.edu
-**WhatsApp**: +34 654 69 13 63
-**Office**: Room A104
-**Office hours**: By appointment
+**Email**: RubiaE@ceu.edu  
+**Office**: Room A104  
+**Office hours**: [Schedule at cal.me/earino](https://cal.me/earino)
 
