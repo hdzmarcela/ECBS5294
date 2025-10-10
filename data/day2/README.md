@@ -141,7 +141,7 @@ This dataset is perfect for teaching SQL joins because it contains **multiple in
 ---
 
 #### 7. `olist_order_reviews_dataset.csv` - Reviews
-**104,719 reviews** | Primary Key: `review_id`
+**99,224 reviews** | Primary Key: `review_id`
 
 | Column | Type | Description |
 |--------|------|-------------|
@@ -187,7 +187,7 @@ This dataset is perfect for teaching SQL joins because it contains **multiple in
 
 **Business value:** Map customer and seller locations, calculate distances, logistics analysis.
 
-**Note:** This table is LARGE (1M rows) and optional for Day 2. Use for advanced geospatial exercises.
+**Note:** This table is LARGE (1M rows, 58 MB file size) and optional for Day 2. Use for advanced geospatial exercises only.
 
 ---
 
