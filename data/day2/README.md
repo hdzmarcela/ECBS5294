@@ -259,7 +259,8 @@ This dataset is perfect for teaching SQL joins because it contains **multiple in
 
 **Why these 4?**
 - Clear primary key/foreign key relationships
-- Teach all join types (INNER, LEFT, RIGHT, FULL)
+- Teach INNER JOIN, LEFT JOIN (with actual examples), and FULL OUTER JOIN
+- RIGHT JOIN taught conceptually (all products have orders, so no natural RIGHT JOIN examples)
 - Answer real business questions
 - Manageable size (combined ~250K rows)
 
@@ -282,11 +283,14 @@ This dataset is perfect for teaching SQL joins because it contains **multiple in
 ### Teaching Opportunities (Real-World Messiness)
 
 **1. Unmatched Rows (Perfect for JOIN Teaching!)**
-- ❓ **Do all products appear in order_items?** NO! Some products have never been ordered.
-  - Use case: `LEFT JOIN` to find products with zero sales
+- ❓ **Do all products appear in order_items?** YES - All 32,951 products have been ordered at least once.
+  - **Teaching implication:** No natural RIGHT JOIN examples (products without orders)
+  - **How to teach RIGHT JOIN:** Demonstrate conceptually that `A RIGHT JOIN B` is equivalent to `B LEFT JOIN A` (just flip the tables)
+  - **Industry note:** RIGHT JOIN is rarely used in practice; LEFT JOIN is the standard
 - ❓ **Do all customers have orders?** YES (by design - customer_id created at order time)
-- ❓ **Do all orders have reviews?** NO! ~95% of orders have reviews, but ~5% don't.
-  - Use case: `LEFT JOIN` to find orders without reviews
+- ❓ **Do all orders have reviews?** NO! 768 orders (0.8%) have no reviews.
+  - **Use case:** Perfect for `LEFT JOIN` teaching - shows orders without matching reviews
+  - **Query:** `orders LEFT JOIN reviews` will show all orders, with NULL review_score for unreviewed orders
 
 **2. Null Values**
 - `order_approved_at`: NULL if payment not approved yet
@@ -317,9 +321,11 @@ By working with this dataset, students will practice:
 1. **INNER JOIN** - Only matching rows from both tables
    - Example: Orders with products (only completed orders with valid products)
 2. **LEFT JOIN** - All rows from left table + matches from right
-   - Example: All orders, even those without reviews
+   - Example: All orders, even those without reviews (768 orders have no reviews)
 3. **RIGHT JOIN** - All rows from right table + matches from left
-   - Example: All products, even those never ordered
+   - Taught conceptually: `A RIGHT JOIN B` = `B LEFT JOIN A` (flip the tables)
+   - Note: This dataset has no natural RIGHT JOIN examples (all products have orders)
+   - Industry note: RIGHT JOIN rarely used; LEFT JOIN is the standard pattern
 4. **FULL OUTER JOIN** - All rows from both tables
    - Example: Complete view of orders and reviews (including orphaned records)
 
