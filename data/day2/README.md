@@ -592,3 +592,581 @@ Once comfortable with basic joins, try:
 ---
 
 **Ready to start? Open `notebooks/day2_block_a_01_joins_basics.ipynb` and let's join some tables!**
+
+---
+---
+
+# Block B: DummyJSON Products API
+
+**Source:** DummyJSON - Fake REST API for Testing and Prototyping
+**URL:** https://dummyjson.com/docs/products
+**License:** Public API, no authentication required
+**File:** `block_b/products.json`
+**Used in:** Day 2 Block B (JSON Normalization and API Ingestion)
+
+---
+
+## Dataset Description
+
+This is a **JSON dataset from DummyJSON**, a free fake REST API designed for testing and prototyping. It contains 100 products with realistic e-commerce data including nested objects, arrays, and one-to-many relationships.
+
+This dataset is perfect for teaching JSON normalization because it contains **multiple levels of nesting** that must be flattened and normalized into relational tables. Students will learn to parse complex JSON structures, extract nested data, and transform them into clean relational schemas.
+
+**Why this dataset?**
+- ✅ Rich nested structure (objects within objects, arrays of objects)
+- ✅ Real-world API response format (like actual e-commerce APIs)
+- ✅ Multiple normalization opportunities (one-to-many, many-to-many)
+- ✅ No authentication required (students focus on data transformation, not API complexity)
+- ✅ Business-relevant (product catalog with reviews - recognizable domain)
+- ✅ Manageable size (100 products, 300 reviews, 203KB) - easy to inspect
+
+---
+
+## Dataset Structure
+
+### Top-Level Response
+
+```json
+{
+  "products": [ ... ],  // Array of 100 product objects
+  "total": 194,         // Total products available in API
+  "skip": 0,            // Pagination offset
+  "limit": 100          // Number of products returned
+}
+```
+
+### Product Object Structure
+
+Each product in the `products` array has the following structure:
+
+```json
+{
+  "id": 1,
+  "title": "Essence Mascara Lash Princess",
+  "description": "The Essence Mascara...",
+  "category": "beauty",
+  "price": 9.99,
+  "discountPercentage": 7.17,
+  "rating": 4.94,
+  "stock": 5,
+  "tags": ["beauty", "mascara"],
+  "brand": "Essence",
+  "sku": "RCH45Q1A",
+  "weight": 2,
+  "dimensions": {
+    "width": 15.14,
+    "height": 13.08,
+    "depth": 22.99
+  },
+  "warrantyInformation": "1 month warranty",
+  "shippingInformation": "Ships in 1 month",
+  "availabilityStatus": "Low Stock",
+  "reviews": [
+    {
+      "rating": 3,
+      "comment": "Would not recommend!",
+      "date": "2025-04-30T09:41:02.053Z",
+      "reviewerName": "Eleanor Collins",
+      "reviewerEmail": "eleanor.collins@x.dummyjson.com"
+    },
+    ...
+  ],
+  "returnPolicy": "30 days return policy",
+  "minimumOrderQuantity": 24,
+  "meta": {
+    "createdAt": "2025-04-16T15:35:13.476Z",
+    "updatedAt": "2025-04-16T15:35:13.476Z",
+    "barcode": "9164035109868",
+    "qrCode": "https://dummyjson.com/public/qr-code.png"
+  },
+  "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/...",
+  "images": [
+    "https://cdn.dummyjson.com/products/images/beauty/..."
+  ]
+}
+```
+
+---
+
+## Nested Structures (Normalization Opportunities!)
+
+### 1. `dimensions` - Nested Object (Flatten to Columns)
+
+**Structure:** Object with 3 keys
+```json
+"dimensions": {
+  "width": 15.14,
+  "height": 13.08,
+  "depth": 22.99
+}
+```
+
+**Normalization strategy:** Flatten to columns in products table
+- `product_width`, `product_height`, `product_depth`
+
+---
+
+### 2. `reviews` - Nested Array of Objects (One-to-Many Relationship)
+
+**Structure:** Array of review objects
+```json
+"reviews": [
+  {
+    "rating": 3,
+    "comment": "Would not recommend!",
+    "date": "2025-04-30T09:41:02.053Z",
+    "reviewerName": "Eleanor Collins",
+    "reviewerEmail": "eleanor.collins@x.dummyjson.com"
+  },
+  ...
+]
+```
+
+**Statistics:**
+- Total reviews across 100 products: **300 reviews**
+- Average reviews per product: **3 reviews**
+
+**Normalization strategy:** Create separate `reviews` table
+- Primary key: Generate `review_id`
+- Foreign key: `product_id` → `products.id`
+- Columns: `rating`, `comment`, `date`, `reviewerName`, `reviewerEmail`
+
+---
+
+### 3. `tags` - Simple Array (Many-to-Many Relationship)
+
+**Structure:** Array of strings
+```json
+"tags": ["beauty", "mascara"]
+```
+
+**Statistics:**
+- Unique tags across all products: **81 tags**
+- Tags per product: Varies (typically 2-3)
+
+**Normalization strategy:** Two options:
+
+**Option A: Bridge table (many-to-many)**
+- `product_tags` table with (`product_id`, `tag`)
+- Allows querying "all products with tag X"
+
+**Option B: JSON column** (if database supports it)
+- Keep as JSON array in DuckDB
+- Use JSON functions to query
+
+---
+
+### 4. `meta` - Nested Object (Flatten to Columns)
+
+**Structure:** Object with metadata
+```json
+"meta": {
+  "createdAt": "2025-04-16T15:35:13.476Z",
+  "updatedAt": "2025-04-16T15:35:13.476Z",
+  "barcode": "9164035109868",
+  "qrCode": "https://dummyjson.com/public/qr-code.png"
+}
+```
+
+**Normalization strategy:** Flatten to columns in products table
+- `created_at`, `updated_at`, `barcode`, `qr_code`
+
+---
+
+### 5. `images` - Array of URLs (One-to-Many Relationship)
+
+**Structure:** Array of image URLs
+```json
+"images": [
+  "https://cdn.dummyjson.com/products/images/beauty/...",
+  ...
+]
+```
+
+**Normalization strategy:** Two options:
+
+**Option A: Separate table**
+- `product_images` table with (`image_id`, `product_id`, `image_url`)
+
+**Option B: JSON column or comma-separated**
+- Simpler for this use case (typically 1-2 images)
+
+---
+
+## Normalized Schema Design
+
+After normalization, the JSON should be transformed into these tables:
+
+### Table 1: `products` (Main Table)
+
+| Column | Type | Source |
+|--------|------|--------|
+| `id` | INTEGER | `id` (PK) |
+| `title` | VARCHAR | `title` |
+| `description` | TEXT | `description` |
+| `category` | VARCHAR | `category` |
+| `price` | DECIMAL | `price` |
+| `discount_percentage` | DECIMAL | `discountPercentage` |
+| `rating` | DECIMAL | `rating` |
+| `stock` | INTEGER | `stock` |
+| `brand` | VARCHAR | `brand` |
+| `sku` | VARCHAR | `sku` |
+| `weight` | INTEGER | `weight` |
+| `width` | DECIMAL | `dimensions.width` (flattened) |
+| `height` | DECIMAL | `dimensions.height` (flattened) |
+| `depth` | DECIMAL | `dimensions.depth` (flattened) |
+| `warranty_info` | VARCHAR | `warrantyInformation` |
+| `shipping_info` | VARCHAR | `shippingInformation` |
+| `availability` | VARCHAR | `availabilityStatus` |
+| `return_policy` | VARCHAR | `returnPolicy` |
+| `min_order_qty` | INTEGER | `minimumOrderQuantity` |
+| `barcode` | VARCHAR | `meta.barcode` (flattened) |
+| `qr_code` | VARCHAR | `meta.qrCode` (flattened) |
+| `created_at` | TIMESTAMP | `meta.createdAt` (flattened) |
+| `updated_at` | TIMESTAMP | `meta.updatedAt` (flattened) |
+| `thumbnail` | VARCHAR | `thumbnail` |
+
+---
+
+### Table 2: `reviews` (One-to-Many from Products)
+
+| Column | Type | Source |
+|--------|------|--------|
+| `review_id` | INTEGER | Generated (PK) |
+| `product_id` | INTEGER | Parent product `id` (FK) |
+| `rating` | INTEGER | `reviews[].rating` |
+| `comment` | TEXT | `reviews[].comment` |
+| `date` | TIMESTAMP | `reviews[].date` |
+| `reviewer_name` | VARCHAR | `reviews[].reviewerName` |
+| `reviewer_email` | VARCHAR | `reviews[].reviewerEmail` |
+
+**Expected rows:** 300 reviews (from 100 products)
+
+---
+
+### Table 3: `product_tags` (Many-to-Many Bridge)
+
+| Column | Type | Source |
+|--------|------|--------|
+| `product_id` | INTEGER | Parent product `id` (FK) |
+| `tag` | VARCHAR | `tags[]` (exploded) |
+
+**Expected rows:** ~200-250 rows (100 products × 2-3 tags each)
+
+---
+
+### Table 4: `product_images` (One-to-Many - Optional)
+
+| Column | Type | Source |
+|--------|------|--------|
+| `image_id` | INTEGER | Generated (PK) |
+| `product_id` | INTEGER | Parent product `id` (FK) |
+| `image_url` | VARCHAR | `images[]` (exploded) |
+
+**Expected rows:** ~100-150 rows (most products have 1-2 images)
+
+---
+
+## Sample Python Code
+
+### Load and Parse JSON
+
+```python
+import json
+import pandas as pd
+
+# Load JSON file
+with open('data/day2/block_b/products.json', 'r') as f:
+    data = json.load(f)
+
+# Extract products array
+products = data['products']
+print(f"Loaded {len(products)} products")
+
+# Inspect first product
+print(products[0].keys())
+```
+
+### Normalize `products` Table (Flatten Nested Objects)
+
+```python
+import pandas as pd
+
+# Create base products dataframe
+products_df = pd.DataFrame(products)
+
+# Flatten dimensions
+products_df['width'] = products_df['dimensions'].apply(lambda x: x['width'])
+products_df['height'] = products_df['dimensions'].apply(lambda x: x['height'])
+products_df['depth'] = products_df['dimensions'].apply(lambda x: x['depth'])
+
+# Flatten meta
+products_df['barcode'] = products_df['meta'].apply(lambda x: x['barcode'])
+products_df['qr_code'] = products_df['meta'].apply(lambda x: x['qrCode'])
+products_df['created_at'] = products_df['meta'].apply(lambda x: x['createdAt'])
+products_df['updated_at'] = products_df['meta'].apply(lambda x: x['updatedAt'])
+
+# Drop original nested columns
+products_df = products_df.drop(columns=['dimensions', 'meta', 'reviews', 'tags', 'images'])
+
+print(products_df.head())
+```
+
+### Normalize `reviews` Table (Explode Nested Array)
+
+```python
+# Extract reviews from all products
+reviews_list = []
+
+for product in products:
+    product_id = product['id']
+    for review in product['reviews']:
+        review_row = {
+            'product_id': product_id,
+            'rating': review['rating'],
+            'comment': review['comment'],
+            'date': review['date'],
+            'reviewer_name': review['reviewerName'],
+            'reviewer_email': review['reviewerEmail']
+        }
+        reviews_list.append(review_row)
+
+reviews_df = pd.DataFrame(reviews_list)
+reviews_df['review_id'] = range(1, len(reviews_df) + 1)  # Generate PK
+
+print(f"Total reviews: {len(reviews_df)}")
+print(reviews_df.head())
+```
+
+### Normalize `product_tags` Table (Explode Simple Array)
+
+```python
+# Extract tags from all products
+tags_list = []
+
+for product in products:
+    product_id = product['id']
+    for tag in product['tags']:
+        tags_list.append({
+            'product_id': product_id,
+            'tag': tag
+        })
+
+tags_df = pd.DataFrame(tags_list)
+print(f"Total product-tag relationships: {len(tags_df)}")
+print(f"Unique tags: {tags_df['tag'].nunique()}")
+print(tags_df.head())
+```
+
+### Load into DuckDB
+
+```python
+import duckdb
+
+con = duckdb.connect(':memory:')
+
+# Create tables from dataframes
+con.register('products', products_df)
+con.register('reviews', reviews_df)
+con.register('product_tags', tags_df)
+
+# Query: Average rating by category
+result = con.execute("""
+    SELECT
+        p.category,
+        COUNT(DISTINCT p.id) as num_products,
+        AVG(r.rating) as avg_review_rating
+    FROM products p
+    INNER JOIN reviews r ON p.id = r.product_id
+    GROUP BY p.category
+    ORDER BY avg_review_rating DESC
+""").fetchdf()
+
+print(result)
+```
+
+---
+
+## Learning Objectives
+
+By working with this dataset, students will practice:
+
+### Block B: JSON Normalization (Day 2 Focus)
+
+**Core Concepts:**
+1. **JSON structure** - Nested objects, arrays of objects, simple arrays
+2. **Flattening nested objects** - Extract keys to columns (dimensions, meta)
+3. **Exploding nested arrays** - Transform one-to-many into separate table (reviews)
+4. **Many-to-many relationships** - Bridge tables for tags
+5. **Type handling** - Converting JSON strings to proper types (dates, decimals)
+6. **Primary key generation** - Creating surrogate keys for child tables
+7. **Foreign key relationships** - Maintaining relationships after normalization
+
+**Key Skills:**
+- Parsing JSON from file or API
+- Identifying nested structures
+- Deciding when to flatten vs create new table
+- Writing Python loops to extract nested data
+- Using pandas to structure normalized data
+- Loading normalized data into DuckDB
+- Querying across normalized tables
+
+**Business Questions:**
+- What's the average review rating by product category?
+- Which products have the highest ratings?
+- What are the most common tags?
+- Which products have the most reviews?
+- What percentage of products are low stock?
+
+---
+
+## Data Characteristics
+
+### Size
+- **Products:** 100
+- **Reviews:** 300 (3 per product average)
+- **Tags:** 81 unique tags, ~200 product-tag relationships
+- **Images:** ~100 image URLs
+- **File size:** 203 KB
+
+### Categories
+The 100 products span multiple categories including:
+- beauty
+- fragrances
+- furniture
+- groceries
+- home-decoration
+- kitchen-accessories
+- laptops
+- mens-shirts
+- mens-shoes
+- mens-watches
+- mobile-accessories
+- smartphones
+- sports-accessories
+- sunglasses
+- tablets
+- tops
+- vehicle
+- womens-bags
+- womens-dresses
+- womens-jewellery
+- womens-shoes
+- womens-watches
+
+### Data Quality
+- ✅ No missing values in core fields (id, title, price, category)
+- ✅ All products have at least one review
+- ✅ All products have at least one tag
+- ✅ Consistent date formats (ISO 8601)
+- ✅ Realistic e-commerce data (prices, stock levels, ratings)
+
+---
+
+## Teaching Notes
+
+### Why DummyJSON for Day 2?
+
+**Separation of concerns:**
+- **Day 2 Block B:** Focus on JSON normalization (data transformation complexity)
+- **Day 3:** Focus on API complexity (auth, rate limits, error handling, multi-source)
+
+By using a simple API on Day 2, students can focus entirely on:
+- Understanding nested JSON structures
+- Deciding how to normalize (flatten vs separate table)
+- Writing transformation code
+- Validating results
+
+**No authentication required** - Students don't need API keys, can run locally from cached JSON.
+
+### Comparison to Real-World APIs
+
+This structure mirrors real e-commerce APIs:
+- **Shopify API:** Similar product + variants + reviews structure
+- **Amazon API:** Similar nested product attributes
+- **E-commerce platforms:** Commonly return nested data requiring normalization
+
+Students who master this dataset will be able to work with real production APIs.
+
+---
+
+## Common Pitfalls
+
+### 1. Forgetting to Generate Primary Keys
+**Problem:** Reviews table needs a `review_id` but JSON doesn't provide one.
+
+**Solution:** Generate using `range()` or `row_number()`
+```python
+reviews_df['review_id'] = range(1, len(reviews_df) + 1)
+```
+
+### 2. Losing Foreign Key Relationship
+**Problem:** When extracting reviews, forgetting to include `product_id`.
+
+**Solution:** Always capture parent ID when iterating:
+```python
+for product in products:
+    product_id = product['id']  # ← Capture this!
+    for review in product['reviews']:
+        review_row = {'product_id': product_id, ...}
+```
+
+### 3. Not Handling NULL/Missing Values
+**Problem:** Some products might not have all nested fields.
+
+**Solution:** Use `.get()` with defaults:
+```python
+width = product.get('dimensions', {}).get('width', None)
+```
+
+### 4. Type Confusion
+**Problem:** Dates are strings, not datetime objects.
+
+**Solution:** Convert types explicitly:
+```python
+reviews_df['date'] = pd.to_datetime(reviews_df['date'])
+```
+
+---
+
+## Advanced Exercises
+
+Once comfortable with basic normalization, try:
+
+1. **Category hierarchy:**
+   - Some categories have parent-child relationships (e.g., "beauty" → "mascara")
+   - Create a category dimension table
+
+2. **Review sentiment analysis:**
+   - Analyze review comments for positive/negative sentiment
+   - Compare sentiment score to numeric rating
+
+3. **Price analytics:**
+   - Calculate actual price after discount
+   - Find products with highest discount percentage
+   - Group by category and compare pricing
+
+4. **Inventory analysis:**
+   - Identify low-stock products (stock < minimum order quantity)
+   - Calculate total inventory value (stock × price)
+
+5. **Tag analysis:**
+   - Find most common tags
+   - Products with most tags
+   - Tag co-occurrence analysis (which tags appear together?)
+
+---
+
+## Attribution & License
+
+**Source:** DummyJSON (https://dummyjson.com)
+**License:** Public API - Free to use for testing and prototyping
+**No authentication required:** Data is publicly accessible
+**Attribution:** Not required, but good practice
+
+**Recommended attribution:**
+> DummyJSON Products API. (2024). Retrieved from https://dummyjson.com/docs/products. Free public API for testing and prototyping.
+
+---
+
+**Ready to normalize? Open `notebooks/day2_block_b_01_json_normalization.ipynb` and let's flatten some JSON!**
