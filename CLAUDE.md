@@ -381,8 +381,8 @@ This section captures the workflow and patterns established during Day 1 develop
 ```markdown
 # Day {N} Dataset: {Name}
 
-**Source:** {URL}
-**License:** {License}
+**Source:** {URL}  
+**License:** {License}  
 **File:** `{filename}`
 
 ## Dataset Description
@@ -523,7 +523,7 @@ python scripts/encrypt_solutions.py \
 # Day {N}, Block {A|B}: {Topic}
 ## Teacher Primer
 
-**Duration:** 90 minutes
+**Duration:** 90 minutes  
 **Audience:** {Context about student level}
 
 ## Learning Objectives
@@ -706,8 +706,8 @@ assignments/hw{N}/
 ```markdown
 # Homework {N}: {Title}
 
-**Course:** ECBS5294
-**Due:** Day {N+1}, Start of Class
+**Course:** ECBS5294  
+**Due:** Day {N+1}, Start of Class  
 **Total Points:** 100 (+ bonus)
 **Est. Time:** {X} hours
 

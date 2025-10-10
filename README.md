@@ -25,13 +25,13 @@ By the end, you'll handle 500K-row datasets, write production-quality queries, a
 
 ## 🗓️ Course Details
 
-**Instructor:** Eduardo Ariño de la Rubia
-**Email:** RubiaE@ceu.edu
-**WhatsApp:** +34 654 69 13 63
-**Office:** Room A104
+**Instructor:** Eduardo Ariño de la Rubia  
+**Email:** RubiaE@ceu.edu  
+**WhatsApp:** +34 654 69 13 63  
+**Office:** Room A104  
 **Office Hours:** By appointment
 
-**Format:** Three full-day sessions (2 blocks per day)
+**Format:** Three full-day sessions (2 blocks per day)  
 **Credits:** 1.0 (runs alongside Coding 1 and Data Science 1)
 
 📄 **Full syllabus with dates:** [syllabus.md](syllabus.md)
@@ -115,7 +115,7 @@ ECBS5294/
 
 ## 🔐 About Solutions (They're Here, But Locked!)
 
-**Good news:** All solutions are in this repo from day one.
+**Good news:** All solutions are in this repo from day one.  
 **Smart design:** They're password-protected until after deadlines.
 
 ### Why This Approach?
@@ -170,7 +170,7 @@ ECBS5294/
 | **In-class deliverables** | 5% | Short exercises (completion-based) |
 | **In-class exam** (Day 3) | 25% | SQL, joins, data thinking (paper/pen, closed-book) |
 
-**Late policy:** −10% per 24 hours (48-hour max)
+**Late policy:** −10% per 24 hours (48-hour max)  
 **Median target:** B+ (roughly ⅓ of class at A/A-)
 
 ---

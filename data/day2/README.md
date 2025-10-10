@@ -6,9 +6,9 @@ This directory contains datasets used in Day 2 teaching materials.
 
 ## Block A: Brazilian E-Commerce (Olist)
 
-**Source:** Kaggle - Brazilian E-Commerce Public Dataset by Olist
-**URL:** https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce
-**License:** CC BY-NC-SA 4.0
+**Source:** Kaggle - Brazilian E-Commerce Public Dataset by Olist  
+**URL:** https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce  
+**License:** CC BY-NC-SA 4.0  
 **Used in:** Day 2 Block A (SQL Joins and Multi-Table Queries)
 
 ---
@@ -598,10 +598,10 @@ Once comfortable with basic joins, try:
 
 # Block B: DummyJSON Products API
 
-**Source:** DummyJSON - Fake REST API for Testing and Prototyping
-**URL:** https://dummyjson.com/docs/products
-**License:** Public API, no authentication required
-**File:** `block_b/products.json`
+**Source:** DummyJSON - Fake REST API for Testing and Prototyping  
+**URL:** https://dummyjson.com/docs/products  
+**License:** Public API, no authentication required  
+**File:** `block_b/products.json`  
 **Used in:** Day 2 Block B (JSON Normalization and API Ingestion)
 
 ---
@@ -1159,9 +1159,9 @@ Once comfortable with basic normalization, try:
 
 ## Attribution & License
 
-**Source:** DummyJSON (https://dummyjson.com)
-**License:** Public API - Free to use for testing and prototyping
-**No authentication required:** Data is publicly accessible
+**Source:** DummyJSON (https://dummyjson.com)  
+**License:** Public API - Free to use for testing and prototyping  
+**No authentication required:** Data is publicly accessible  
 **Attribution:** Not required, but good practice
 
 **Recommended attribution:**

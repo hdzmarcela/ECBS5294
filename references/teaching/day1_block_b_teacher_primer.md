@@ -1,7 +1,7 @@
 # Day 1, Block B: SQL with DuckDB - Teacher Primer
 
 **For Instructor/TA Use**
-**Duration:** 90 minutes
+**Duration:** 90 minutes  
 **Prerequisites:** Block A completed (tidy data, types, primary keys)
 
 ---

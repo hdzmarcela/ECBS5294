@@ -1,7 +1,7 @@
 # Homework 1: SQL Foundations with DuckDB
 
-**Course:** ECBS5294 - Introduction to Data Science: Working with Data
-**Due:** Day 2, Start of Class
+**Course:** ECBS5294 - Introduction to Data Science: Working with Data  
+**Due:** Day 2, Start of Class  
 **Total Points:** 100 (+ 10 bonus)
 **Est. Time:** 2-2.5 hours
 

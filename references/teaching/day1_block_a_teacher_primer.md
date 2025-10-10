@@ -1,8 +1,8 @@
 # Day 1, Block A: Data Thinking & Tidy Foundations
 ## Teacher Primer
 
-**Duration:** 90 minutes (13:30–15:10)
-**Audience:** Absolute beginners, first exposure to thinking about data
+**Duration:** 90 minutes (13:30–15:10)  
+**Audience:** Absolute beginners, first exposure to thinking about data  
 **Context:** First day of MSBA program, runs parallel to Coding 1 and Data Science 1
 
 ---

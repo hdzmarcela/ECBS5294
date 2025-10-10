@@ -1,6 +1,6 @@
 # Tidy Data - Hadley Wickham
 
-**Source:** https://vita.had.co.nz/papers/tidy-data.pdf
+**Source:** https://vita.had.co.nz/papers/tidy-data.pdf  
 **Original Publication:** Journal of Statistical Software, 2014
 
 ## Tidy Data Definition

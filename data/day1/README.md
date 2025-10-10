@@ -6,10 +6,10 @@ This directory contains two datasets used in Day 1 teaching materials.
 
 ## Dataset 1: Cafe Sales Data (Dirty)
 
-**Source:** Kaggle - Cafe Sales Dirty Data for Cleaning Training
-**URL:** https://www.kaggle.com/datasets/ahmedmohamed2003/cafe-sales-dirty-data-for-cleaning-training
-**License:** CC-BY-SA-4.0
-**File:** `dirty_cafe_sales.csv`
+**Source:** Kaggle - Cafe Sales Dirty Data for Cleaning Training  
+**URL:** https://www.kaggle.com/datasets/ahmedmohamed2003/cafe-sales-dirty-data-for-cleaning-training  
+**License:** CC-BY-SA-4.0  
+**File:** `dirty_cafe_sales.csv`  
 **Used in:** Day 1 Block A (Tidy Data Foundations)
 
 ---
@@ -204,10 +204,10 @@ Remember: There's rarely one "correct" answer in data cleaning. What matters is 
 
 ## Dataset 2: Sample - Superstore
 
-**Source:** Kaggle - Sample Supermarket Dataset
-**URL:** https://www.kaggle.com/datasets/bravehart101/sample-supermarket-dataset
-**License:** CC0 (Public Domain)
-**File:** `Sample - Superstore.csv`
+**Source:** Kaggle - Sample Supermarket Dataset  
+**URL:** https://www.kaggle.com/datasets/bravehart101/sample-supermarket-dataset  
+**License:** CC0 (Public Domain)  
+**File:** `Sample - Superstore.csv`  
 **Used in:** Day 1 Block B (SQL with DuckDB - Window Functions)
 
 ---

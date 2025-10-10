@@ -86,9 +86,9 @@ For each notebook, produce a report:
 ## Cell-by-Cell Verification Report: [notebook_name]
 
 ### Cell [N]: [Brief description]
-**Markdown says:** [What the markdown promises]
-**Code does:** [What the code actually does]
-**Output shows:** [What appears in the output]
+**Markdown says:** [What the markdown promises]  
+**Code does:** [What the code actually does]  
+**Output shows:** [What appears in the output]  
 **Status:** ✅ MATCH / ⚠️ MISMATCH / ❌ ERROR
 **Issue (if any):** [Describe discrepancy]
 
@@ -98,8 +98,8 @@ For each notebook, produce a report:
 
 ## Summary
 
-**Total cells checked:** [N]
-**Cells with perfect match:** [N]
+**Total cells checked:** [N]  
+**Cells with perfect match:** [N]  
 **Cells with issues:** [N]
 
 ### Issues Found:
