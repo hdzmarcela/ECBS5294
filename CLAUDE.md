@@ -1302,3 +1302,4 @@ If you're unsure about a pattern or convention:
 - All patterns established during Day 1 development
 - This CLAUDE.md file is the source of truth for conventions
 - Update this file if you establish new patterns!
+- we properly attribute datasets we use in our program, and make sure to always hae appropriate rights to use them.
