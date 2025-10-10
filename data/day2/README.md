@@ -346,19 +346,19 @@ By working with this dataset, students will practice:
 ```sql
 -- Load orders
 CREATE TABLE orders AS
-SELECT * FROM 'data/day2/olist_orders_dataset.csv';
+SELECT * FROM 'data/day2/block_a/olist_orders_dataset.csv';
 
 -- Load customers
 CREATE TABLE customers AS
-SELECT * FROM 'data/day2/olist_customers_dataset.csv';
+SELECT * FROM 'data/day2/block_a/olist_customers_dataset.csv';
 
 -- Load order items
 CREATE TABLE order_items AS
-SELECT * FROM 'data/day2/olist_order_items_dataset.csv';
+SELECT * FROM 'data/day2/block_a/olist_order_items_dataset.csv';
 
 -- Load products
 CREATE TABLE products AS
-SELECT * FROM 'data/day2/olist_products_dataset.csv';
+SELECT * FROM 'data/day2/block_a/olist_products_dataset.csv';
 
 -- Verify row counts
 SELECT 'orders' as table_name, COUNT(*) as row_count FROM orders
@@ -388,7 +388,7 @@ LIMIT 10;
 ```sql
 -- Load reviews first
 CREATE TABLE reviews AS
-SELECT * FROM 'data/day2/olist_order_reviews_dataset.csv';
+SELECT * FROM 'data/day2/block_a/olist_order_reviews_dataset.csv';
 
 -- Find orders without reviews
 SELECT
@@ -420,7 +420,7 @@ LIMIT 10;
 ```sql
 -- Load sellers
 CREATE TABLE sellers AS
-SELECT * FROM 'data/day2/olist_sellers_dataset.csv';
+SELECT * FROM 'data/day2/block_a/olist_sellers_dataset.csv';
 
 -- Top sellers by number of items sold
 SELECT
