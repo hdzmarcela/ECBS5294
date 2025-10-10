@@ -288,9 +288,14 @@ This dataset is perfect for teaching SQL joins because it contains **multiple in
   - **How to teach RIGHT JOIN:** Demonstrate conceptually that `A RIGHT JOIN B` is equivalent to `B LEFT JOIN A` (just flip the tables)
   - **Industry note:** RIGHT JOIN is rarely used in practice; LEFT JOIN is the standard
 - ❓ **Do all customers have orders?** YES (by design - customer_id created at order time)
-- ❓ **Do all orders have reviews?** NO! 768 orders (0.8%) have no reviews.
+- ❓ **Do all sellers have sales?** YES - All 3,095 sellers in the sellers table have at least one sale
+- ❓ **Do all orders have reviews?** NO! 768 orders (0.77%) have no reviews overall.
+  - **BETTER LEFT JOIN EXAMPLES:** Filter by order status for clearer teaching:
+    - **Shipped orders:** 75 unreviewed (6.71% of 1,118 shipped orders)
+    - **Canceled orders:** 20 unreviewed (3.18% of 629 canceled orders)
+    - **Delivered orders:** 646 unreviewed (0.67% of 97,007 delivered orders)
   - **Use case:** Perfect for `LEFT JOIN` teaching - shows orders without matching reviews
-  - **Query:** `orders LEFT JOIN reviews` will show all orders, with NULL review_score for unreviewed orders
+  - **Query:** `orders LEFT JOIN reviews WHERE order_status IN ('shipped', 'canceled')` gives stronger examples than using all orders
 
 **2. Null Values**
 - `order_approved_at`: NULL if payment not approved yet
@@ -305,9 +310,9 @@ This dataset is perfect for teaching SQL joins because it contains **multiple in
 - **Watch for duplicate rows!** Joining orders to order_items inflates row count.
 
 **4. Data Quality Issues**
-- Some `product_id` in order_items don't exist in products table (orphaned FKs)
-- Some `seller_id` in order_items don't exist in sellers table
-- **Pedagogical gold:** Students must decide how to handle with different join types
+- **VERIFIED: No orphaned foreign keys** - All `product_id` and `seller_id` in order_items have matching records in products/sellers tables
+- However, some products have NULL category names (good for NULL handling practice)
+- **Pedagogical note:** While this dataset is clean, teach students to CHECK for orphaned FKs in real-world scenarios
 
 ---
 
@@ -321,13 +326,15 @@ By working with this dataset, students will practice:
 1. **INNER JOIN** - Only matching rows from both tables
    - Example: Orders with products (only completed orders with valid products)
 2. **LEFT JOIN** - All rows from left table + matches from right
-   - Example: All orders, even those without reviews (768 orders have no reviews)
+   - Example: All orders, even those without reviews (768 orders have no reviews overall)
+   - **Better example:** Filter by status - 6.71% of shipped orders lack reviews (75 orders)
 3. **RIGHT JOIN** - All rows from right table + matches from left
-   - Taught conceptually: `A RIGHT JOIN B` = `B LEFT JOIN A` (flip the tables)
-   - Note: This dataset has no natural RIGHT JOIN examples (all products have orders)
-   - Industry note: RIGHT JOIN rarely used; LEFT JOIN is the standard pattern
+   - **Teaching approach:** Demonstrate that `A RIGHT JOIN B` = `B LEFT JOIN A` (just flip the tables!)
+   - **This dataset:** No natural RIGHT JOIN examples (all products ordered, all sellers active)
+   - **Real-world use case:** "Products never sold" or "Employees with no sales" - but we don't have these in Olist
+   - **Industry note:** RIGHT JOIN rarely used in practice; LEFT JOIN is the standard pattern
 4. **FULL OUTER JOIN** - All rows from both tables
-   - Example: Complete view of orders and reviews (including orphaned records)
+   - Example: Complete view of orders and reviews (shows unmatched rows from both sides)
 
 **Key Skills:**
 - Understanding primary keys and foreign keys
