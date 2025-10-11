@@ -2,16 +2,66 @@
 
 You are tasked with performing **exhaustive cell-by-cell verification** of Jupyter notebooks to ensure teaching quality.
 
+## 🚨 NON-NEGOTIABLE REQUIREMENT: EXECUTE FIRST
+
+**YOU MUST EXECUTE EVERY NOTEBOOK BEFORE ANALYZING IT.**
+
+This is not optional. This is not "if time permits." This is MANDATORY.
+
+### Why This Matters
+
+- **Students will run these notebooks** - if they don't work, teaching fails
+- **Reading code ≠ running code** - syntax errors, path issues, empty results only appear at runtime
+- **Outputs must be real** - not theoretical, not "should return", ACTUAL data from execution
+- **Empty results are CRITICAL** - you cannot detect them without execution
+
+### Execution-First Protocol
+
+**BEFORE ANY ANALYSIS, you must:**
+
+```bash
+# 1. Execute the notebook
+jupyter nbconvert --execute --to notebook --inplace \
+  path/to/notebook.ipynb \
+  --ExecutePreprocessor.timeout=300
+
+# 2. Check outputs for issues (utility script available!)
+python scripts/check_notebook_outputs.py path/to/notebook.ipynb
+
+# If execution fails or outputs have issues, document and fix
+# Do NOT proceed to verification until execution succeeds
+```
+
+**💡 TIP: Use `scripts/check_notebook_outputs.py` to quickly check for:**
+- Empty DataFrames (0 rows)
+- Cells without outputs
+- Execution errors
+- Summary statistics
+
+**EXECUTION VERIFICATION CHECKLIST:**
+- [ ] Did you run `jupyter nbconvert --execute`?
+- [ ] Did execution complete without errors?
+- [ ] Are all cells now populated with outputs?
+- [ ] Did you CHECK the outputs for empty results?
+- [ ] Did you LOOK at the actual data returned?
+
+**If you answered NO to ANY of these, STOP and execute first.**
+
+---
+
 ## Your Mission
 
 For each notebook specified (or ALL teaching notebooks if none specified):
 
-1. **Launch parallel verification agents** - one agent per notebook for speed
-2. **Each agent must verify EVERY code cell** in their assigned notebook
-3. **Report findings** in a structured format
-4. **Identify ALL issues** (no matter how minor)
-5. **Fix issues found** (if requested)
-6. **Re-execute notebooks** to verify fixes work
+1. **🚨 EXECUTE THE NOTEBOOK FIRST** - Use `jupyter nbconvert --execute` (MANDATORY)
+2. **Verify execution succeeded** - Check exit code, no errors
+3. **Inspect ACTUAL outputs** - Look at what the execution produced
+4. **Launch parallel verification agents** - one agent per notebook (AFTER execution)
+5. **Each agent must verify EVERY code cell** using ACTUAL execution results
+6. **Report findings** in a structured format
+7. **Identify ALL issues** (no matter how minor)
+8. **Fix issues found** (if requested)
+9. **Re-execute notebooks** to verify fixes work
 
 ---
 
@@ -24,10 +74,11 @@ For EVERY code cell, check:
 - Are there promises made that the code doesn't fulfill?
 - Are there discrepancies in numbers (e.g., markdown says "5 rows" but LIMIT 10)?
 
-### 2. Output Accuracy
-- Does the output (already in notebook) match what markdown promised?
-- Are there **empty results** (empty DataFrames) that would confuse students?
+### 2. Output Accuracy (REQUIRES EXECUTION ✓)
+- Does the output **AFTER YOU EXECUTED THE NOTEBOOK** match what markdown promised?
+- Are there **empty results** (0 rows, empty DataFrames) that would confuse students?
 - Do calculated values make sense given the data?
+- **WARNING:** Do NOT say "output should show X" - report what output ACTUALLY shows after execution
 
 ### 3. Business Logic Correctness
 - Do filter conditions (WHERE clauses) match data constraints?
@@ -116,6 +167,20 @@ For each notebook, produce a report:
 
 ## Execution Workflow
 
+0. **🚨 EXECUTE ALL NOTEBOOKS FIRST (MANDATORY)**
+
+   For EACH discovered notebook:
+   ```bash
+   jupyter nbconvert --execute --to notebook --inplace \
+     path/to/notebook.ipynb \
+     --ExecutePreprocessor.timeout=300
+   ```
+
+   - If execution fails, document which cells errored
+   - Note: Exercise notebooks with TODO cells may fail - that's expected
+   - For exercise notebooks, verify only setup cells execute
+   - **DO NOT PROCEED to agent launch until teaching notebooks execute successfully**
+
 1. **Identify notebooks to verify**
    - If user specified paths, use those
    - Otherwise, use Glob tool to auto-discover:
@@ -124,10 +189,11 @@ For each notebook, produce a report:
      - `assignments/hw*/hw*_starter.ipynb` (assignment notebooks)
    - This ensures NEW notebooks are automatically included (Day 2, Day 3, etc.)
 
-2. **Launch parallel agents** (one per notebook)
+2. **Launch parallel agents** (one per notebook) **AFTER EXECUTION**
    ```
    Use Task tool with subagent_type='general-purpose'
    One task per notebook for maximum speed
+   Tell agents notebooks are ALREADY EXECUTED
    ```
 
 3. **Wait for all reports** to complete
@@ -137,6 +203,7 @@ For each notebook, produce a report:
    - Total issues found
    - Breakdown by severity
    - Breakdown by issue type (empty results, mismatches, terminology, etc.)
+   - **Report execution results** - which notebooks ran successfully
 
 5. **Ask user** if they want issues fixed
    - If YES: Fix all issues using NotebookEdit
@@ -147,6 +214,7 @@ For each notebook, produce a report:
 6. **Offer to commit** changes if fixes were made
    - Generate comprehensive commit message
    - Include issue counts and verification stats
+   - Include execution confirmation
    - Push to GitHub if approved
 
 ---
@@ -197,7 +265,10 @@ If ANY teaching example returns empty results (0 rows), this is **CRITICAL**:
 
 You've succeeded when:
 
-✅ Every code cell in every notebook has been verified
+✅ **EXECUTED every notebook with `jupyter nbconvert --execute`** (MOST IMPORTANT)
+✅ **VERIFIED all notebooks run without errors** (checked exit codes)
+✅ **INSPECTED actual outputs from execution** (not theoretical - REAL data)
+✅ Every code cell in every notebook has been verified against ACTUAL outputs
 ✅ Markdown descriptions match code behavior exactly
 ✅ All outputs are meaningful (no confusing empty results)
 ✅ All issues documented with severity levels
@@ -206,4 +277,13 @@ You've succeeded when:
 
 ---
 
+**⚠️ IF YOU DID NOT EXECUTE NOTEBOOKS, YOU FAILED THE VERIFICATION. ⚠️**
+
+Reading code is not verification. Thinking about what code might do is not verification.
+**EXECUTION IS VERIFICATION.**
+
+---
+
 **Remember:** This is about **teaching quality**. Students trust that examples work. Every empty result or mismatch erodes that trust. Be thorough, be pedantic, be rigorous.
+
+**And EXECUTE FIRST.**
