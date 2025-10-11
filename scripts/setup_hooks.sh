@@ -2,8 +2,10 @@
 #
 # Setup Git Hooks for ECBS5294
 #
-# This script installs the pre-commit hook that prevents
-# accidental commits of unencrypted solution files.
+# This script installs the pre-commit hook that:
+# 1. Clears outputs from Jupyter notebooks
+# 2. Validates notebook format (nbformat 4.5 with cell IDs)
+# 3. Prevents accidental commits of unencrypted solution files
 #
 # Usage: ./scripts/setup_hooks.sh
 #
@@ -33,10 +35,11 @@ chmod +x .git/hooks/pre-commit
 echo "✅ Pre-commit hook installed and activated"
 echo ""
 echo "What this hook does:"
-echo "  ✅ Blocks commits of *_solution.ipynb files"
-echo "  ✅ Blocks commits of *_solution.py files"
-echo "  ✅ Allows commits of encrypted solutions-*.zip files"
-echo "  ✅ Verifies ZIP files are password-protected"
+echo "  1️⃣  Clears outputs from Jupyter notebooks automatically"
+echo "  2️⃣  Validates notebook format (nbformat 4.5 with unique cell IDs)"
+echo "  3️⃣  Blocks commits of unencrypted solution files (*_solution.ipynb, *_solution.py)"
+echo "  3️⃣  Allows commits of encrypted solutions-*.zip files"
+echo "  3️⃣  Verifies ZIP files are password-protected"
 echo ""
 echo "To test the hook:"
 echo "  1. Try to commit a solution file (will be blocked):"

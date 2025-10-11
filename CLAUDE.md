@@ -246,6 +246,194 @@ Students receive encrypted ZIPs from day one but passwords are released only aft
 
 See `solutions/README.md` for student-facing instructions.
 
+---
+
+## Notebook Format Requirements
+
+**MANDATORY: All Jupyter notebooks MUST use nbformat 4.5 with unique cell IDs**
+
+### Why This Matters
+
+Jupyter Notebook format 4.5 (introduced 2020) requires **unique cell IDs** for each cell. This enables:
+- ✅ Better version control (git diffs show which cells changed)
+- ✅ Improved merge conflict resolution
+- ✅ Cell-level tracking across notebook versions
+- ✅ Compatibility with modern Jupyter tools (JupyterLab 3+, VS Code)
+
+**Without cell IDs:** Git diffs are noisy, merges fail, and notebooks may not load correctly in modern environments.
+
+### Required Format
+
+**Top-level structure:**
+```json
+{
+  "cells": [...],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3 (ipykernel)",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {...}
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
+```
+
+**Each cell structure:**
+```json
+{
+  "cell_type": "markdown",
+  "id": "a1b2c3d4",
+  "metadata": {},
+  "source": [
+    "Line 1 of content\n",
+    "Line 2 of content\n"
+  ]
+}
+```
+
+**Important:** Cell `id` field is **REQUIRED** and must be:
+- **8 characters long**
+- **Lowercase hexadecimal** (0-9, a-f)
+- **Unique within the notebook**
+
+**Code cells:**
+```json
+{
+  "cell_type": "code",
+  "execution_count": null,
+  "id": "e5f6g7h8",
+  "metadata": {},
+  "outputs": [],
+  "source": [
+    "import pandas as pd\n",
+    "print('Hello')\n"
+  ]
+}
+```
+
+### Automated Validation
+
+A **pre-commit hook** automatically validates notebook format before commits:
+- Checks nbformat version is 4.5+
+- Verifies all cells have IDs
+- Ensures IDs are unique and properly formatted (8-char hex)
+- **Blocks commit if validation fails** with clear error message
+
+**Install the hook:**
+```bash
+./scripts/setup_hooks.sh
+```
+
+### Creating New Notebooks
+
+**Option 1: Use modern JupyterLab/VS Code (recommended)**
+```bash
+jupyter lab  # JupyterLab 3+ automatically adds cell IDs
+code notebook.ipynb  # VS Code with Jupyter extension
+```
+
+Modern editors automatically handle cell IDs when you save.
+
+**Option 2: Convert old notebooks**
+```bash
+# Jupyter can upgrade old notebooks to nbformat 4.5
+jupyter nbconvert --to notebook --inplace old_notebook.ipynb
+```
+
+This adds missing cell IDs automatically.
+
+**Option 3: Manual creation (advanced)**
+```python
+import json
+import secrets
+
+# Generate unique 8-char hex ID
+def generate_cell_id():
+    return secrets.token_hex(4)  # 4 bytes = 8 hex chars
+
+# Example cell with ID
+cell = {
+    "cell_type": "markdown",
+    "id": generate_cell_id(),
+    "metadata": {},
+    "source": ["# My Title\n"]
+}
+```
+
+### Verification
+
+**Check your notebook format:**
+```bash
+python3 -c "import json; nb=json.load(open('notebook.ipynb')); print(f'nbformat: {nb[\"nbformat\"]}.{nb[\"nbformat_minor\"]}'); print(f'Cells with IDs: {sum(1 for c in nb[\"cells\"] if \"id\" in c)}/{len(nb[\"cells\"])}')"
+```
+
+**Expected output:**
+```
+nbformat: 4.5
+Cells with IDs: 50/50
+```
+
+If you see `Cells with IDs: 0/50` or `nbformat: 4.4`, your notebook needs updating!
+
+### Pre-Commit Hook Details
+
+The validation hook checks:
+1. ✅ `nbformat == 4`
+2. ✅ `nbformat_minor >= 5`
+3. ✅ Every cell has an `id` field
+4. ✅ All IDs are 8-character lowercase hexadecimal strings
+5. ✅ All IDs are unique within the notebook
+6. ✅ No duplicate IDs exist
+
+**If validation fails**, the commit is blocked and you'll see a clear error message:
+```
+❌ NOTEBOOK FORMAT ERROR: notebooks/example.ipynb
+   - Missing cell IDs: cells at indices [0, 5, 12]
+   - Invalid ID format: 'abc' (must be 8-char hex)
+   - Duplicate IDs found: 'a1b2c3d4' appears 2 times
+
+Fix these issues and try again.
+Run: jupyter nbconvert --to notebook --inplace notebooks/example.ipynb
+```
+
+### Common Issues & Fixes
+
+**Issue:** "Cell IDs missing" error when committing
+**Fix:** Open notebook in JupyterLab 3+ and save (auto-adds IDs), or run:
+```bash
+jupyter nbconvert --to notebook --inplace your_notebook.ipynb
+```
+
+**Issue:** "Duplicate cell ID" error
+**Fix:** Manually edit the notebook JSON to ensure unique IDs, or regenerate with JupyterLab
+
+**Issue:** "Invalid ID format" (e.g., ID is too long or contains uppercase)
+**Fix:** Manually correct IDs to be exactly 8 lowercase hex characters, or regenerate
+
+**Issue:** Old nbformat version (4.4 or lower)
+**Fix:** Run `jupyter nbconvert --to notebook --inplace your_notebook.ipynb`
+
+### Why Cell IDs Were Introduced
+
+**Historical context:** Before nbformat 4.5, Jupyter notebooks had no stable cell identifiers. This caused:
+- ❌ Poor git diffs (entire notebook shown as changed even for 1-cell edit)
+- ❌ Merge conflicts were nearly impossible to resolve
+- ❌ No way to track "is this the same cell after refactoring?"
+- ❌ Extensions couldn't reliably reference specific cells
+
+**With cell IDs:**
+- ✅ Git shows exactly which cells changed
+- ✅ Merge conflicts can be resolved cell-by-cell
+- ✅ Cells maintain identity across moves/edits
+- ✅ Extensions can reference cells reliably
+
+**Bottom line:** Use nbformat 4.5. It's been the standard since 2020, and all modern tools expect it.
+
+---
+
 ## Core Technologies
 
 - **Python 3.x** - Primary language
