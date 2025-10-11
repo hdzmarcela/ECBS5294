@@ -68,15 +68,20 @@ By the end, you'll handle 500K-row datasets, write production-quality queries, a
 ECBS5294/
 │
 ├── data/                    # Teaching datasets (offline, provided)
-│   └── day1/                  # Dirty cafe sales data for practice
+│   ├── day1/                  # Dirty cafe sales data for practice
+│   └── day2/                  # Olist e-commerce marketplace data
 │
 ├── notebooks/               # Teaching notebooks and exercises
-│   ├── day1_block_a_tidy_foundations.ipynb
-│   ├── day1_block_b_01_sql_foundations.ipynb
-│   ├── day1_block_b_02_aggregations.ipynb
-│   ├── day1_block_b_03_window_functions.ipynb
-│   ├── day1_exercise_tidy.ipynb
-│   └── day1_setup_check.ipynb
+│   ├── day1/
+│   │   ├── day1_block_a_tidy_foundations.ipynb
+│   │   ├── day1_block_b_01_sql_foundations.ipynb
+│   │   ├── day1_block_b_02_aggregations.ipynb
+│   │   ├── day1_block_b_03_window_functions.ipynb
+│   │   ├── day1_exercise_tidy.ipynb
+│   │   └── day1_setup_check.ipynb
+│   └── day2/
+│       ├── day2_block_a_joins.ipynb
+│       └── day2_exercise_joins.ipynb
 │
 ├── assignments/             # Homework assignments with instructions
 │   └── hw1/                   # SQL single-table + window functions
@@ -89,6 +94,7 @@ ECBS5294/
 │   ├── tidy_data_checklist.md
 │   ├── sql_quick_reference.md
 │   ├── datasets/              # Dataset documentation
+│   ├── images/                # Diagrams and visual aids
 │   ├── papers/                # Summaries of key papers
 │   └── teaching/              # Teacher notes (for your benefit!)
 │
@@ -108,7 +114,7 @@ ECBS5294/
 └── README.md                # You are here!
 ```
 
-**Note:** Materials for Day 2 and Day 3 will be added as the course progresses.
+**Note:** Day 2 materials are complete. Day 3 materials will be added as the course progresses.
 
 ---
 

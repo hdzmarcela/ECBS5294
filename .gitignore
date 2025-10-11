@@ -132,3 +132,4 @@ slides/output/
 # Keep git hooks in version control
 # (They are part of the project setup)
 !.git/hooks/pre-commit
+*.nbconvert.ipynb
