@@ -28,6 +28,9 @@ solutions/decrypted/
 # Encryption log (auto-generated history)
 solutions/.encryption_log.txt
 
+# Password backup (machine-readable JSON backup)
+solutions/.password_backup.json
+
 # ============================================
 # Python
 # ============================================

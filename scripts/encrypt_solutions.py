@@ -1,11 +1,27 @@
 #!/usr/bin/env python3
 """
-Encrypt Solution Notebooks
+⚠️  DEPRECATED - USE encrypt_solutions_v2.py INSTEAD ⚠️
+
+This script is DEPRECATED because it requires MANUAL password documentation.
+This leads to password loss when manual steps are forgotten.
+
+USE encrypt_solutions_v2.py INSTEAD - it automatically documents passwords!
+
+==============================================================================
+Encrypt Solution Notebooks (OLD VERSION - DEPRECATED)
 
 This script creates password-protected ZIP files of solution notebooks.
 It ensures consistent naming and logs all encryption events.
 
+⚠️  WARNING: This script requires you to manually add passwords to PASSWORDS.md
+⚠️  This manual step is easy to forget and causes password loss!
+⚠️  USE scripts/encrypt_solutions_v2.py instead - it auto-documents passwords!
+
 Usage:
+    python scripts/encrypt_solutions_v2.py <source_file> --password <pwd> --output <output.zip> --description "..."
+    python scripts/encrypt_solutions_v2.py <source_file> --password <pwd> --day 1 --block A --description "..."
+
+Old (deprecated) usage of THIS script:
     python scripts/encrypt_solutions.py <source_file> --password <pwd> --output <output.zip>
     python scripts/encrypt_solutions.py <source_file> --password <pwd> --day 1 --block A
 
@@ -119,8 +135,32 @@ def log_encryption(source_file, output_path, day=None, block=None):
 
 
 def main():
+    # DEPRECATION WARNING
+    print("=" * 70)
+    print("⚠️  WARNING: This script is DEPRECATED!")
+    print("=" * 70)
+    print()
+    print("This script requires MANUAL password documentation, which leads to")
+    print("password loss when manual steps are forgotten.")
+    print()
+    print("USE encrypt_solutions_v2.py INSTEAD - it automatically documents")
+    print("passwords in 3 places and prevents loss!")
+    print()
+    print("  python scripts/encrypt_solutions_v2.py <source> \\")
+    print("    --password \"your-password\" \\")
+    print("    --output <output.zip> \\")
+    print("    --description \"What this is for\"")
+    print()
+    print("=" * 70)
+    print()
+
+    response = input("Continue with OLD script anyway? (type 'yes' to continue): ")
+    if response.lower() != 'yes':
+        print("Aborted. Use encrypt_solutions_v2.py instead!")
+        sys.exit(0)
+
     parser = argparse.ArgumentParser(
-        description='Encrypt solution notebooks into password-protected ZIPs',
+        description='[DEPRECATED] Encrypt solution notebooks into password-protected ZIPs',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=__doc__
     )
