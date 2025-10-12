@@ -93,29 +93,51 @@ By the end of this block, you'll be able to:
 
 # Normalization: The Pattern
 
-**Before (nested JSON):**
-```
-Product 1 → [Review 1, Review 2, Review 3]
-Product 2 → [Review 4, Review 5]
+### Before: Nested JSON (Can't query with SQL ❌)
+
+```json
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Widget",
+      "reviews": [
+        {"rating": 5, "comment": "Great!"},
+        {"rating": 4, "comment": "Good"}
+      ]
+    }
+  ]
+}
 ```
 
-**After (normalized tables):**
+**Problem:** How do you query "average rating per product" in nested JSON? You can't!
+
+---
+
+# Normalization: The Pattern
+
+### After: Relational Tables (SQL-ready ✅)
 
 **`products` table:**
-```
-product_id | title
-1          | Widget
-2          | Gadget
-```
+| product_id | title  |
+|------------|--------|
+| 1          | Widget |
+| 2          | Gadget |
 
 **`reviews` table:**
-```
-review_id | product_id | rating | comment
-1         | 1          | 5      | Great!
-2         | 1          | 4      | Good
-```
+| review_id | product_id | rating | comment |
+|-----------|------------|--------|---------|
+| 1         | 1          | 5      | Great!  |
+| 2         | 1          | 4      | Good    |
+| 3         | 2          | 5      | Love it |
 
-**Now you can JOIN and query with SQL!**
+**Now you can query:**
+```sql
+SELECT p.title, AVG(r.rating) as avg_rating
+FROM products p
+LEFT JOIN reviews r ON p.product_id = r.product_id
+GROUP BY p.title
+```
 
 ---
 
