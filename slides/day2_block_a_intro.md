@@ -54,19 +54,13 @@ By the end of this block, you'll be able to:
 
 ---
 
-# Mental Model: JOINs are Like Vlookup (But Better)
+# Mental Model: JOINs vs VLOOKUP
 
-**Excel VLOOKUP:**
-- Look up one value at a time
-- Breaks with duplicates
-- Slow on large data
-- Error-prone
-
-**SQL JOIN:**
-- Combine entire tables at once
-- Handles duplicates correctly
-- Optimized for millions of rows
-- Clear, declarative syntax
+| VLOOKUP | SQL JOIN |
+|---------|----------|
+| One value at a time | Entire tables at once |
+| Breaks with duplicates | Handles duplicates |
+| Slow on large data | Millions of rows in seconds |
 
 **JOINs are how professionals combine data.**
 
