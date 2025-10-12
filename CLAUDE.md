@@ -1234,6 +1234,214 @@ import os
 assert os.path.exists("data/day1/file.csv"), "Data file not found! Check your working directory."
 ```
 
+### Notebook Display Best Practices
+
+**CRITICAL: DataFrames must render as beautiful HTML tables, not ugly plain text.**
+
+Jupyter notebooks can display DataFrames in two ways:
+- ✅ **HTML tables** - Styled, readable, professional (the default if done correctly)
+- ❌ **Plain text** - Ugly, hard to read, unprofessional (what happens when you print())
+
+**The Rule:** NEVER use `print()` on DataFrames. Let Jupyter render them natively.
+
+---
+
+#### Single DataFrame Display
+
+**For one DataFrame in a cell:**
+
+```python
+# ✅ CORRECT - Renders as beautiful HTML table
+print("Query results:")
+con.execute("SELECT * FROM table LIMIT 10").df()
+
+# or
+print("Results:")
+df.head()
+```
+
+**What happens:** The last expression in the cell is automatically rendered as HTML by Jupyter.
+
+```python
+# ❌ WRONG - Renders as ugly plain text
+print("Query results:")
+result = con.execute("SELECT * FROM table LIMIT 10").df()
+print(result)  # ← DON'T DO THIS!
+```
+
+---
+
+#### Multiple DataFrames Display
+
+**For multiple DataFrames in one cell, use `display()`:**
+
+```python
+# ✅ CORRECT - All three render as HTML tables
+from IPython.display import display
+
+print("Table 1:")
+display(con.execute("SELECT * FROM table1").df())
+
+print("Table 2:")
+display(con.execute("SELECT * FROM table2").df())
+
+print("Table 3:")
+display(con.execute("SELECT * FROM table3").df())
+```
+
+**Why `display()` is needed:** Jupyter only auto-renders the LAST expression in a cell. If you have multiple DataFrames, only the last would show as HTML without `display()`.
+
+```python
+# ❌ WRONG - Only the last DataFrame shows as HTML
+print("Table 1:")
+con.execute("SELECT * FROM table1").df()  # ← Ignored!
+
+print("Table 2:")
+con.execute("SELECT * FROM table2").df()  # ← Ignored!
+
+print("Table 3:")
+con.execute("SELECT * FROM table3").df()  # ← Only this renders
+```
+
+---
+
+#### Text Output vs DataFrame Output
+
+**Be clear about what should be text vs what should be a table:**
+
+```python
+# ✅ Text labels and messages - use print()
+print("✅ Created 'products' table: 30 rows")
+print(f"Average price: ${avg_price:.2f}")
+print("Processing complete!")
+
+# ✅ DataFrames - NO print()
+print("Products by category:")
+con.execute("SELECT category, COUNT(*) FROM products GROUP BY category").df()
+
+# ✅ Validation info - use print()
+print(f"Shape: {df.shape}")
+print(f"Columns: {list(df.columns)}")
+print(f"Unique products: {df['product_id'].nunique()}")
+```
+
+---
+
+#### Common Patterns Reference
+
+**Pattern 1: DuckDB query result**
+```python
+print("Top 10 customers:")
+con.execute("""
+    SELECT customer_id, SUM(revenue) as total_revenue
+    FROM orders
+    GROUP BY customer_id
+    ORDER BY total_revenue DESC
+    LIMIT 10
+""").df()
+```
+
+**Pattern 2: Pandas DataFrame manipulation**
+```python
+print("After cleaning:")
+df.head()
+```
+
+**Pattern 3: Multiple summary tables**
+```python
+from IPython.display import display
+
+print("Summary statistics:")
+display(df.describe())
+
+print("Missing value counts:")
+display(df.isnull().sum())
+
+print("Data types:")
+display(df.dtypes.to_frame('dtype'))
+```
+
+**Pattern 4: Mixed text and tables**
+```python
+print("Data loaded successfully!")
+print(f"Total rows: {len(df):,}")
+print(f"Total columns: {len(df.columns)}")
+print("\nFirst 5 rows:")
+df.head()
+```
+
+---
+
+#### Anti-Patterns to Avoid
+
+```python
+# ❌ NEVER DO THIS
+result = df.head()
+print(result)  # Ugly plain text output
+
+# ❌ NEVER DO THIS
+query_result = con.execute("SELECT * FROM table").df()
+print(query_result)  # Ugly plain text output
+
+# ❌ NEVER DO THIS (without display)
+print("Table 1:")
+df1.head()  # Won't show if another DataFrame follows
+
+print("Table 2:")
+df2.head()  # Only this one renders
+
+# ✅ DO THIS INSTEAD
+from IPython.display import display
+
+print("Table 1:")
+display(df1.head())
+
+print("Table 2:")
+display(df2.head())
+```
+
+---
+
+#### Testing Display Quality
+
+After creating/editing a notebook, verify displays are correct:
+
+1. **Execute the notebook:**
+   ```bash
+   jupyter nbconvert --execute --to notebook --inplace notebook.ipynb
+   ```
+
+2. **Check output types:**
+   ```python
+   import json
+   with open('notebook.ipynb') as f:
+       nb = json.load(f)
+
+   for cell in nb['cells']:
+       if cell['cell_type'] == 'code' and 'outputs' in cell:
+           for output in cell['outputs']:
+               if output['output_type'] == 'execute_result':
+                   if 'text/html' in output['data']:
+                       print("✅ HTML table")
+                   else:
+                       print("❌ Not HTML - check this cell")
+   ```
+
+3. **Visual inspection:** Open notebook in JupyterLab/VS Code and verify tables are styled and readable.
+
+---
+
+#### Summary: Display Best Practices
+
+- ✅ **Single DataFrame:** Direct expression (no print)
+- ✅ **Multiple DataFrames:** Use `display()` for each
+- ✅ **Text labels:** Use `print()`
+- ✅ **Import at top:** Add `from IPython.display import display` if needed
+- ❌ **NEVER:** Use `print(dataframe)`
+- ❌ **NEVER:** Store in variable then print
+
+**Golden Rule:** If it's tabular data, let Jupyter render it as HTML. If it's text, use `print()`.
+
 ---
 
 ## Slide Development Guidelines
