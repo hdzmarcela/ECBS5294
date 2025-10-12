@@ -48,6 +48,9 @@ SLIDES=(
     "slides/day1_kickoff.md"
     "slides/day1_block_a_intro.md"
     "slides/day1_block_b_intro.md"
+    "slides/day2_kickoff.md"
+    "slides/day2_block_a_intro.md"
+    "slides/day2_block_b_intro.md"
 )
 
 # Build each slide deck

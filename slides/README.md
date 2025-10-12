@@ -6,7 +6,7 @@ This directory contains Marp-based slide presentations for course kickoffs and b
 
 ## Available Slide Decks
 
-### Course Kickoff
+### Day 1: Course Kickoff
 
 **`day1_kickoff.md`** (~10 minutes)
 - Welcome and instructor introduction
@@ -19,7 +19,7 @@ This directory contains Marp-based slide presentations for course kickoffs and b
 
 ---
 
-### Optional Block Introductions
+### Day 1: Block Introductions
 
 **`day1_block_a_intro.md`** (~3 minutes)
 - Quick overview of tidy data foundations block
@@ -32,6 +32,37 @@ This directory contains Marp-based slide presentations for course kickoffs and b
 - Learning objectives
 
 **Use these:** Optional quick intros at the start of each block if you want to set context before diving into the teaching notebooks.
+
+---
+
+### Day 2: Course Kickoff
+
+**`day2_kickoff.md`** (~10 minutes)
+- Welcome back and Day 1 recap
+- Day 2 agenda: Joins & APIs
+- Why today matters (multi-table data and API ingestion)
+- Homework 1 check-in and Homework 2 preview
+- Learning objectives
+
+**Use this:** At the start of Day 2, to reconnect and set context for the day.
+
+---
+
+### Day 2: Block Introductions
+
+**`day2_block_a_intro.md`** (~3 minutes)
+- Multi-table joins overview
+- Four JOIN types and decision framework
+- Olist e-commerce dataset introduction
+- Learning objectives
+
+**`day2_block_b_intro.md`** (~3 minutes)
+- REST API and JSON fundamentals
+- Normalization pattern overview
+- DummyJSON API introduction
+- Learning objectives
+
+**Use these:** Optional quick intros at the start of each Day 2 block.
 
 ---
 
@@ -156,15 +187,21 @@ The custom CEU theme is defined in `themes/ceu-theme.css`.
 
 ```
 slides/
-├── day1_kickoff.md              # Main course introduction
-├── day1_block_a_intro.md        # Optional: Tidy data intro
-├── day1_block_b_intro.md        # Optional: SQL intro
+├── day1_kickoff.md              # Day 1 course introduction
+├── day1_block_a_intro.md        # Day 1 Block A: Tidy data intro
+├── day1_block_b_intro.md        # Day 1 Block B: SQL intro
+├── day2_kickoff.md              # Day 2 course introduction
+├── day2_block_a_intro.md        # Day 2 Block A: Joins intro
+├── day2_block_b_intro.md        # Day 2 Block B: APIs/JSON intro
 ├── themes/
 │   └── ceu-theme.css            # Custom CEU branding
 ├── output/                       # Generated HTML/PDF (gitignored)
 │   ├── day1_kickoff.html
 │   ├── day1_block_a_intro.html
-│   └── day1_block_b_intro.html
+│   ├── day1_block_b_intro.html
+│   ├── day2_kickoff.html
+│   ├── day2_block_a_intro.html
+│   └── day2_block_b_intro.html
 └── README.md                    # This file
 ```
 
