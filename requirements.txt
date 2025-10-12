@@ -1,0 +1,30 @@
+# ECBS5294 - Introduction to Data Science: Working with Data
+# Course Dependencies
+
+# Core Data Science Libraries
+pandas>=2.0.0
+numpy>=1.24.0
+duckdb>=0.9.0
+
+# API & HTTP Requests (Day 2 Block B)
+requests>=2.31.0
+
+# Jupyter Notebook Environment
+jupyter>=1.0.0
+jupyterlab>=4.0.0
+notebook>=7.0.0
+
+# Visualization (optional, for future use)
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Development/Testing (optional)
+ipykernel>=6.25.0
+
+# Production API Patterns (optional - referenced in quick reference card)
+# Uncomment if students want to explore production patterns:
+# tenacity>=8.2.0          # Automatic retry logic
+# ratelimit>=2.2.1         # Rate limiting
+# requests-cache>=1.1.0    # Response caching
+# responses>=0.23.0        # API testing mocks
+# python-dotenv>=1.0.0     # Environment variable management
