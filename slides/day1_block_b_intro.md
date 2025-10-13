@@ -100,7 +100,8 @@ FROM sales
 **Teaching notebooks:**
 - `day1_block_b_01_sql_foundations.ipynb`
 - `day1_block_b_02_aggregations.ipynb`
-- `day1_block_b_03_window_functions.ipynb`
+- `day1_block_b_03_window_functions_primer.ipynb`
+- `day1_block_b_04_window_functions_deep_dive.ipynb` (optional enrichment)
 
 **Quick reference:**
 `references/sql_quick_reference.md`
