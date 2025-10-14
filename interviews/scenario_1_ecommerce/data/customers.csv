@@ -1,0 +1,21 @@
+customer_id,customer_city,customer_state,created_date
+c001,Los Angeles,CA,2024-01-15
+c002,San Francisco,CA,2024-01-20
+c003,Austin,TX,2024-02-01
+c004,Seattle,WA,2024-02-10
+c005,San Diego,CA,2024-02-15
+c006,Portland,,2024-02-20
+c007,Boston,MA,2024-03-01
+c008,Denver,CO,2024-03-05
+c009,Phoenix,AZ,2024-03-10
+c010,Sacramento,CA,2024-03-12
+c011,Miami,FL,2024-03-15
+c012,Chicago,IL,2024-03-18
+c013,Dallas,TX,2024-03-20
+c014,New York,,2024-03-22
+c015,Oakland,CA,2024-03-25
+c016,Boulder,,2024-03-28
+c017,Nashville,TN,2024-04-01
+c018,Atlanta,GA,2024-04-05
+c019,Minneapolis,MN,2024-04-08
+c020,Philadelphia,PA,2024-04-10

@@ -1,0 +1,16 @@
+store_id,store_name,city,state,region,opened_date
+s001,Downtown Plaza,San Francisco,CA,West,2020-01-15
+s002,Sunset Center,Los Angeles,CA,West,2020-03-10
+s003,Beach Mall,San Diego,CA,West,2020-06-01
+s004,Mountain View,Denver,CO,Southwest,2020-08-15
+s005,Desert Oasis,Phoenix,AZ,Southwest,2021-01-10
+s006,Canyon Store,Albuquerque,NM,Southwest,2021-03-20
+s007,Northwest Hub,Seattle,WA,Northwest,2019-11-01
+s008,Portland Plaza,Portland,OR,Northwest,2020-02-15
+s009,Spokane Center,Spokane,WA,Northwest,2021-05-01
+s010,Silicon Valley,San Jose,CA,West,2021-08-10
+s011,River City,Sacramento,CA,West,2022-01-15
+s012,Tech Square,Austin,TX,Southwest,2022-06-01
+s013,Emerald Store,Eugene,OR,Northwest,2023-03-10
+s014,Bay Shore,Oakland,CA,West,2023-09-15
+s015,Desert Springs,Las Vegas,NV,Southwest,2024-02-01
