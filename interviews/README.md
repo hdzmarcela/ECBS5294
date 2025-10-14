@@ -12,6 +12,36 @@ This directory contains materials for conducting realistic SQL whiteboard interv
 
 ---
 
+## 🔒 Instructor Materials Are Encrypted
+
+**Interviewer guides, sample data, and test scripts are stored in an encrypted ZIP file to prevent students from seeing questions ahead of time.**
+
+### For Instructors: How to Decrypt
+
+The encrypted file is: **`../solutions/interview-materials.zip`**
+
+**To decrypt:**
+```bash
+# From the repository root
+unzip -P "<password>" solutions/interview-materials.zip
+
+# This extracts to interviews/ directory:
+#   - scenario_*/interviewer_guide.md (detailed scripts)
+#   - scenario_*/data/*.csv (sample data to load)
+#   - test_scenarios.py (data validation script)
+```
+
+**Password location:**
+- Emailed to instructor (search inbox for "ECBS5294 Interview")
+- Or contact course creator (RubiaE@ceu.edu)
+
+**After decryption:**
+- Interview guides will be in `scenario_*/interviewer_guide.md`
+- Sample data will be in `scenario_*/data/*.csv`
+- Load data following instructions in each interviewer guide
+
+---
+
 ## Contents
 
 ### For Students
@@ -22,16 +52,16 @@ This directory contains materials for conducting realistic SQL whiteboard interv
 ### For Instructor
 
 - **[google_sheet_template.md](google_sheet_template.md)** - Instructions for setting up booking system
-- **scenario_1_ecommerce/** - Complete interviewer guide + sample data
-- **scenario_2_saas/** - Complete interviewer guide + sample data
-- **scenario_3_retail/** - Complete interviewer guide + sample data
+- **`../solutions/interview-materials.zip`** - 🔒 Encrypted interviewer guides, sample data, and test scripts (see decryption instructions above)
 
 ---
 
 ## Quick Start Guide for Instructors
 
-### 1. Review the Materials (15 minutes)
+### 1. Decrypt and Review Materials (20 minutes)
 
+- **Decrypt interviewer materials:** `unzip -P "<password>" ../solutions/interview-materials.zip`
+  - Password is in your email (subject: "ECBS5294 Interview")
 - Read one interviewer guide (start with Scenario 1) to understand the format
 - Browse the sample data CSVs to see what students will work with
 - Review the student prep guide to understand what students are told
