@@ -69,7 +69,8 @@ ECBS5294/
 │
 ├── data/                    # Teaching datasets (offline, provided)
 │   ├── day1/                  # Dirty cafe sales data for practice
-│   └── day2/                  # Olist e-commerce marketplace data
+│   ├── day2/                  # Olist e-commerce marketplace data
+│   └── day3/                  # Chicago + NYC government data + Olist subsets
 │
 ├── notebooks/               # Teaching notebooks and exercises
 │   ├── day1/
@@ -80,12 +81,19 @@ ECBS5294/
 │   │   ├── day1_block_b_04_window_functions_deep_dive.ipynb
 │   │   ├── day1_exercise_tidy.ipynb
 │   │   └── day1_setup_check.ipynb
-│   └── day2/
-│       ├── day2_block_a_joins.ipynb
-│       └── day2_exercise_joins.ipynb
+│   ├── day2/
+│   │   ├── day2_block_a_joins.ipynb
+│   │   ├── day2_block_b_01_api_json_basics.ipynb
+│   │   ├── day2_block_b_02_json_to_duckdb.ipynb
+│   │   └── day2_exercise_joins.ipynb
+│   └── day3/
+│       ├── day3_block_a_pipelines_and_validations.ipynb
+│       └── day3_exercise_mini_pipeline.ipynb
 │
 ├── assignments/             # Homework assignments with instructions
-│   └── hw1/                   # SQL single-table + window functions
+│   ├── hw1/                   # SQL single-table + window functions
+│   ├── hw2/                   # JSON normalization + multi-table queries
+│   └── hw3/                   # End-to-end data integration project
 │
 ├── solutions/               # Encrypted solution ZIPs (see below!)
 │   ├── README.md              # How to use encrypted solutions
@@ -94,6 +102,7 @@ ECBS5294/
 ├── references/              # Quick references and cheat sheets
 │   ├── tidy_data_checklist.md
 │   ├── sql_quick_reference.md
+│   ├── pipeline_patterns_quick_reference.md
 │   ├── datasets/              # Dataset documentation
 │   ├── images/                # Diagrams and visual aids
 │   ├── papers/                # Summaries of key papers
@@ -115,7 +124,7 @@ ECBS5294/
 └── README.md                # You are here!
 ```
 
-**Note:** Day 2 materials are complete. Day 3 materials will be added as the course progresses.
+**Note:** All course materials (Days 1-3) are complete and ready to use.
 
 ---
 
@@ -153,13 +162,13 @@ ECBS5294/
 - **Assigned:** Homework 1 (due start of Day 2)
 
 ### Day 2 – Joins & JSON Ingestion
-- **Block A:** SQL joins & relational modeling (INNER/LEFT/RIGHT/FULL)
+- **Block A:** SQL joins & relational modeling (INNER/LEFT, diagnosing join issues)
 - **Block B:** JSON & APIs → tidy tables
 - **Assigned:** Homework 2 (due start of Day 3)
 
 ### Day 3 – Pipelines & Assessment
-- **Block A:** Data in the wild + pipeline patterns (bronze/silver/gold)
-- **Block B:** In-class exam (paper/pen, 100 minutes)
+- **Block A:** Pipeline patterns + validations (bronze/silver/gold layers)
+- **Block B:** In-class exam (paper/pen, 60 minutes)
 - **Assigned:** Homework 3 (due one week after class)
 
 📅 **Specific dates:** See [syllabus.md](syllabus.md) for the current term's schedule.
@@ -186,6 +195,7 @@ ECBS5294/
 ### Quick References
 - [Tidy Data Checklist](references/tidy_data_checklist.md) – Primary keys, types, missing values
 - [SQL Quick Reference](references/sql_quick_reference.md) – Syntax cheat sheet
+- [Pipeline Patterns Quick Reference](references/pipeline_patterns_quick_reference.md) – Bronze/silver/gold layers
 
 ### Textbooks & Docs
 - Arthur Turrell, *Coding for Economists* (selected chapters)

@@ -64,6 +64,12 @@ temp/
 # Research materials (stored separately in ECBS5294_interview_research/)
 research/
 
+# ============================================
+# Exam Materials - NEVER COMMIT
+# ============================================
+# Final exam questions, solutions, and rubrics
+assignments/final_exam/
+
 # Downloaded or generated data (not teaching materials)
 data/downloads/
 data/temp/
